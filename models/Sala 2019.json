@@ -1,0 +1,63 @@
+{
+  "source_name": "Trawling in the Mediterranean: An Exploration of Empirical Relations Connecting Fishing Gears, Otterboards and Propulsive Characteristics of Fishing Vessels",
+  "source_doi": "10.3389/fmars.2019.00534",
+  "source_documentation": "Self-organizing maps (SOM) were used to explore the empirical relationships among different parts of the fishing trawl gears, as well as between some of these parts, the otterboard size and the engine power of the vessel.",
+  "gear_models": [
+    {
+      "name": "Trawl meta-model - Mediterranean - Gross Tonnage",
+      "gear_types": {
+        "GilmanGear8Name": "trawl"
+      },
+      "scaling_unit" : "Gross Tonnage of vessel",
+      "intensity_model": {
+        "Cluster 1": ["triangular", 3.47,4.07,2.34],
+        "Cluster 2": ["triangular", 1.54,1.68,1.38],
+        "Cluster 3": ["triangular", 1.45,1.9,0.69],
+        "Cluster 4": ["triangular", 6.45,8.57,6.16]
+      },
+      "documentation": "Sala et al 2019 [DOI 10.3389/fmars.2019.00534] Table 3 - self-org cluster analysis, TrW / GT"
+    },
+    {
+      "name": "Trawl meta-model - Mediterranean - Engine Power",
+      "gear_types": {
+        "GilmanGear8Name": "trawl"
+      },
+      "scaling_unit" : "Kilowatt of engine capacity",
+      "intensity_model": {
+        "Cluster 1": ["triangular", 0.54,0.61,0.39],
+        "Cluster 2": ["triangular", 0.29,0.31,0.22],
+        "Cluster 3": ["triangular", 0.32,0.38,0.22],
+        "Cluster 4": ["triangular", 0.51,0.54,0.48]
+      },
+      "documentation": "Sala et al 2019 [DOI 10.3389/fmars.2019.00534] Table 3 - self-org cluster analysis, TrW / hp / 0.746"
+    },
+    {
+      "name": "Trawl meta-model - Mediterranean - Length Overall",
+      "gear_types": {
+        "GilmanGear8Name": "trawl"
+      },
+      "scaling_unit" : "Length overall in meters",
+      "intensity_model": {
+        "Cluster 1": ["triangular", 18.19,21.57,11.54],
+        "Cluster 2": ["triangular", 8.81,10.57,6.15],
+        "Cluster 3": ["triangular", 16.08,24.32,5.52],
+        "Cluster 4": ["triangular", 29.1,30.61,25.42]
+      },
+      "documentation": "Sala et al 2019 [DOI 10.3389/fmars.2019.00534] Table 3 - self-org cluster analysis, TrW / LOA"
+    },
+    {
+      "name": "Trawl meta-model - Mediterranean - Length of Head Line",
+      "gear_types": {
+        "GilmanGear8Name": "trawl"
+      },
+      "scaling_unit" : "Length of trawl headline",
+      "intensity_model": {
+        "Cluster 1": ["triangular", 5.86,6.88,3.75],
+        "Cluster 2": ["triangular", 4.31,4.87,3.2],
+        "Cluster 3": ["triangular", 6.44,7.13,4.32],
+        "Cluster 4": ["triangular", 6.45,6.73,5.77]
+      },
+      "documentation": "Sala et al 2019 [DOI 10.3389/fmars.2019.00534] Table 3 - self-org cluster analysis, TrW / HL"
+    }
+  ]
+}

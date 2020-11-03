@@ -1,0 +1,257 @@
+{
+  "source_name": "Gilman et al 2020 - Fishing Gear Prioritization",
+  "source_doi": "none",
+  "source_documentation": "Fishing methods with the most problematic risks from abandoned, lost and discarded gear\nManuscript in preparation",
+  "dissipation_models": [
+    {
+      "name": "Gilman prioritization - Drift gillnet",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": "Pelagic gillnets"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.031,
+        0.035,
+        0.027000000000000003
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Set and fixed gillnet",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": ["Bottom gillnet", "Surface & Bottom Set Gillnet", "Trammel nets"]
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.084,
+        0.095,
+        0.073
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Purse seine ",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.066,
+        0.073,
+        0.059000000000000004
+      ],
+      "dissipation_type": "loss-fragments"
+    },
+    {
+      "name": "Gilman prioritization - Seine net",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": ["Beach seines","Boat seines"]
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.023,
+        0.027999999999999997,
+        0.019
+      ],
+      "dissipation_type": "loss-fragments"
+    },
+    {
+      "name": "Gilman prioritization - Midwater trawl",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": ["Otter trawls, midwater", "Pair trawls, midwater"]
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.07,
+        0.08199999999999999,
+        0.057999999999999996
+      ],
+      "dissipation_type": "loss-fragments"
+    },
+    {
+      "name": "Gilman prioritization - Bottom trawl",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": ["Otter trawls, bottom", "Pair trawls, bottom"]
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.18,
+        0.19,
+        0.16
+      ],
+      "dissipation_type": "loss-fragments"
+    },
+    {
+      "name": "Gilman prioritization - Pots",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": "Pots"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.19,
+        0.2,
+        0.18
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Fyke net",
+      "documentation": "Table S1",
+      "gear_types": {
+        "FAOGearName": "Fyke nets"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.040999999999999995,
+        0.045,
+        0.038
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Pound net",
+      "documentation": "Table S1",
+      "gear_types": {
+        "VonBrandtDescription": "pound nets"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.026000000000000002,
+        0.027999999999999997,
+        0.024
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Tuna purse seine drifting FAD",
+      "documentation": "Table S1",
+      "gear_types": {
+        "FADs": "Purse Seine Drifting FADs"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.182,
+        0.305,
+        0.059000000000000004
+      ],
+      "dissipation_type": "lost-FADs"
+    },
+    {
+      "name": "Gilman prioritization - Tuna purse seine anchored FAD",
+      "documentation": "Table S1",
+      "gear_types": {
+        "FADs": "Purse Seine Anchored FADs"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": 0.81,
+      "dissipation_type": "lost-FADs"
+    },
+    {
+      "name": "Gilman prioritization - Pole-and-line anchored FAD",
+      "documentation": "Table S1",
+      "gear_types": {
+        "FADs": "Pole and Line Anchored FADs"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.593,
+        0.98,
+        0.20600000000000002
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Pelagic longline",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": "Longlines - pelagic"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.006999999999999999,
+        0.016,
+        0.0
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Demersal longline and trotline",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": "Longlines - bottom"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.14800000000000002,
+        0.314,
+        0.0
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Troll and pelagic handline",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": ["Handlines", "Trolling lines"]
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.075,
+        0.21,
+        0.0
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Bottom handline",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": "Handlines"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.139,
+        0.376,
+        0.0
+      ],
+      "dissipation_type": "lost"
+    },
+    {
+      "name": "Gilman prioritization - Pole-and-line",
+      "documentation": "Table S1",
+      "gear_types": {
+        "GilmanGear25Description": "Pole-and-line"
+      },
+      "op_unit": "Year of operation",
+      "dissipation_model": [
+        "triangular",
+        0.105,
+        0.29100000000000004,
+        0.0
+      ],
+      "dissipation_type": "lost"
+    }
+  ]
+}

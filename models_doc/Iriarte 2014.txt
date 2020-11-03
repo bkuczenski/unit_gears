@@ -1,0 +1,48 @@
+==========
+Wed Sep 30 13:21:31 -0700 2020
+
+LCA of Peruvian Anchoveta fleet
+https://link.springer.com/article/10.1007/s11367-014-0716-3
+
+What have we got here?
+ - net composition (Supplementary materials):
+   64% nylon
+   21% PE
+   14% lead
+   1% copper + steel
+   
+ - from table 2:
+    gear use per t landings: 84.74 g new net construction per t landings
+    gear maint per t landings: 762 g net maintenance per t landings
+    gear EOL per t landings: 542 g nylon
+    gear EOL per t landings: 122 g lead
+
+ - from table 3:
+    fuel use per landed tonne, which can equate to kwh per landed tonne if we knew how engine power ratings are specified
+    * observed constancy of this parameter across vessel sizes! pretty close to 15 kg fuel per tonne (min. 14.52 max 16.64) for all categories with n>4 records
+    = so we relate fuel use to engine power through fuel heating value and engine efficiency, as appropriate, and that gives us a catch per kwh data point!
+
+ - from table 6: a metastudy of 6-10 other studies, all with fuel usage per t reported! this gives us a single source solution for estimating capture rating for purse seiners.
+
+It doesn't help with turning engine power into gear-- though the other studies might. We simply have no kw*h rating anywhere.
+
+But we don't need that- we already have it because we have unit gear losses from catch through to gear!
+
+ Figure 3 gives a good report of holding capacity to catch: catch / (number of vessels * holding capacity ) = catch per vessel m3. but that's not helpful. let's just leave it.
+
+Let's track down some of his other references and see what we find....
+but for now this is solid
+
+http://pierrefreon.free.fr/PDF/Avadi_et_al_J%20Clean%20Prod%202014%20LCA+DEA%20Eco_efficiency%20assessment%20peruvian%20anchoveta%20fleets.pdf
+
+same authors, largely same data but also include small-scale vessels
+
+Use Avadi et al in Capture folder-- it has the summary data for nylon-- although the reported values for industrial don't match
+
+Of course, a problem with the fuel usage estimate is that presumably that is not talking about fuel usage during fishing, but total vessel fuel use.
+
+hmm. all the ind-ecol papers are reporting fuel usage per tonne. that may not actually be giving us capture rates.
+
+ok. let's move to something else.
+
+

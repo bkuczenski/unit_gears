@@ -1,0 +1,40 @@
+{
+  "source_name": "LCA of Danish Fish Products. New methods and insights",
+  "source_doi": "10.1065/lca2006.01.232",
+  "source_documentation": "Based on M. Thrane PhD thesis, http://www.armeris.fr/downloads/fuel/Thrane_2004_1.pdf\nSee also: 10.1162/1088198041269427",
+  "effort_models": [
+    {
+      "name": "Fuel Economy - Landed Catch - Danish Beam Trawl",
+      "gear_types": {
+        "GilmanGear25Description": "Beam trawls"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Kilowatt of engine capacity",
+      "op_unit": "Hour of operation",
+      "effort_model": ["uniform", 15000.0, 5000.0],
+      "documentation": "2.5 litres diesel per kg flatfish [Thrane 2006, doi 10.1065/lca2006.01.232, Fig. 5]\n at 35 MJ/l* 1 kWh/3.6MJ at 40% engine efficiency = about 10 kW*h per kg"
+    },
+    {
+      "name": "Fuel Economy - Landed Catch - Danish Bottom Trawl",
+      "gear_types": {
+        "GilmanGear25Description": "Otter trawls, bottom"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Kilowatt of engine capacity",
+      "op_unit": "Hour of operation",
+      "effort_model": ["uniform", 6000.0, 2000.0],
+      "documentation": "1.0 litres diesel per kg flatfish [Thrane 2006, doi 10.1065/lca2006.01.232, Fig. 5]\n at 35 MJ/l* 1 kWh/3.6MJ at 40% engine efficiency = about 4 kW*h per kg"
+    },
+    {
+      "name": "Fuel Economy - Landed Catch - Danish Seine",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+       "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Kilowatt of engine capacity",
+      "op_unit": "Hour of operation",
+      "effort_model": ["uniform", 930.0, 310.0],
+      "documentation": "0.16 litres diesel per kg flatfish [Thrane 2006, doi 10.1065/lca2006.01.232, Fig. 5]\n at 35 MJ/l* 1 kWh/3.6MJ at 40% engine efficiency = about 0.62 kW*h per kg"
+    },
+  
+}

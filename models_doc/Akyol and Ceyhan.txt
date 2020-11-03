@@ -1,0 +1,52 @@
+==========
+Fri Oct 30 23:40:49 -0700 2020
+
+DOI 10.3750/AIP2011.42.2.06
+
+Turkish driftnet fishery for Albacore, thunnus alalunga, and incidental catches in the eastern Mediterranean
+
+
+n = 13 +- 1.6 per 1000 m per day
+90 +- 11 kg per 1000 m per day
+
+individual nets 2000-7200 m
+vessels
+LOA 10.5-34m
+GT 7-148
+engine 25-1300 kW
+
+
+cite: Krakaluk reported 18 vessels from 14-25m and 149-373 kw
+      albacore 77% by number and 97% by mass
+
+http://www.fao.org/fishery/fishtech/1011/en
+reports driftnets are typ 20-30m height
+
+Rope 23 tex / 21# multifilament nylon 170mm stretched mesh, 300-600 mesh deepness
+= 23 g / 1000 m
+http://www.louisianasportnets.com/netting.htm
+reports #21 is 1.65 mm dia
+210/21 denier
+
+denier is "mass in grams per 9000 m" for some reason
+210/21 means 21 filaments, totaling 210 grams per 9000 m = 23 tex = 23 g/km
+
+assuming 80% elongation, that tells us 40-80m!!
+
+Biomass and number ratios of the non-target species to the target albacore were
+1 : 0.59 kg and 1 : 0.31 specimens, respectively (Table 2).
+
+Table 2 reverses that:
+Albacore : non-target
+fish 1 : 0.31	1 : 0.59  <- table is correct
+
+so we have catch -> effort, gear -> mass that's it
+ugh. fishing days per year?? forgot to look.
+
+
+let's assume a 50% hanging ratio so 1 km @ 170mm stretched = 11764 mesh width, 300-600 mesh deepness = 1200 km of twine per km
+at 23 tex that is a shocking 27.6 TONS of nylon per km!!!???
+148 GT vessel
+but 7 km would exceed 148 GT
+
+23 g/km = 27 kg of nylon. you idiot.

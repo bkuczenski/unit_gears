@@ -1,0 +1,15 @@
+{
+  "source_name": "ARTISANAL PURSE SEINE DESIGN IMPROVEMENTS SUGGESTED FOR MOZAMBIQUE FISHERIES",
+  "source_documentation": "Mozambique artisanal purse seining for small pelagic fish (sardine, trachurus and anchovy) on 8 to 12 m vessels",
+  "gear_models": [
+    {
+      "name": "Small scale - vessel length to gear weight",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+      "scaling_unit": "Vessel length in meters",
+      "intensity_model": ["uniform", 17.9, 9.12],
+      "documentation": "0.038-0.043 kg/m2, 8-12m vessels, 120x16 to 200x25 seine size"
+    }
+  ]
+}

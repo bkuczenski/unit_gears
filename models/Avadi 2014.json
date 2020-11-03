@@ -1,0 +1,21 @@
+{
+  "source_name": "Eco-efficiency assessment of the Peruvian anchoveta steel and wooden fleets using the LCA+DEA framework",
+  "source_doi": "10.1016/j.jclepro.2014.01.047",
+  "source_documentation": "See also Freon et al 2014 [10.1007/s11367-014-0716-3]",
+  "gear_models": [
+    {
+      "name": "purse seine LCI - Peru Anchoveta",
+      "gear_types": {
+        "GFWCategory": "seiners"
+      },
+      "scaling_unit": "One tonne landed catch",
+      "intensity_model": {
+        "small": ["lognormal", 0.0705, 0.01],
+        "medium": ["lognormal", 0.310, 0.01],
+        "vikingas": ["lognormal", 0.266, 0.01],
+        "industrial": ["lognormal", 0.540, 0.01]
+      },
+      "documentation": "Peru Anchoveta - Purse Seine LCI\nHand-writing JSON is not fun.\nScale by vessel capacity:\nsmall: <10m3\nmedium: 27-32.6m3\nvikingas: 50-100m3\nindustrial: 155-635\nNote that Freon et al [10.1007/s11367-014-0716-3] is used for industrial vessels per author communication"
+    }
+  ]
+}

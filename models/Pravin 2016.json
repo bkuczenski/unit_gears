@@ -1,0 +1,25 @@
+{
+  "source_name": "Purse seining in India - a review",
+  "source_doi": "10.21077/ijf.2016.63.3.50404-25",
+  "source_documentation": "Technical Data on 4-5 representative purse seine rigs from 1970-2010",
+  "gear_models": [
+    {
+      "name": "Vessel length to seine weight",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+      "scaling_unit": "Vessel length in meters",
+      "intensity_model": ["uniform", 251.0, 54.0],
+      "documentation": "Table 1\nLOA\tengine hp\tSeine length\tseine depth\tmesh size\n14-18m\t110-240\t700-1500m\t70-100m\t24-46\n15-22\t140-350\t450-1500\t60-100\t18-46\n11-21\t120-350\t800-1200\t80-100\t24-46\n18-24\t120-510\t600-1200\t70-100\t36-45\n\nSeine weight - Table 2\nyear\t1974\t1974\t1980\t2010\nlength\t292m\t366m\t350m\t1000m\ndepth\t27m\t46m\t39m\t72m\nhead rope\tPES 11mm\tPES 22mm\t PES 10mm\t PP 12mm\nfoot rope\t309m PES 12mm\t383m PES 25mm\t 370m PES 10mm\t1188m PP 12mm\nTotal Weight\t 1400kg\t3050 kg\t 3050kg\t 3500 kg\nest. metal weight\t249kg\t226kg\t200kg\t1110kg\n\nAssume rope has a weight of 0.065 kg/m at 10mm and 0.5 kg/m at 25mm"
+    },
+    {
+      "name": "Engine size to seine weight",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+      "scaling_unit": "Kilowatts of engine capacity",
+      "intensity_model": ["uniform", 25.3, 7.8],
+      "documentation": "Table 1\nLOA\tengine hp\tSeine length\tseine depth\tmesh size\n14-18m\t110-240\t700-1500m\t70-100m\t24-46\n15-22\t140-350\t450-1500\t60-100\t18-46\n11-21\t120-350\t800-1200\t80-100\t24-46\n18-24\t120-510\t600-1200\t70-100\t36-45\n\nSeine weight - Table 2\nyear\t1974\t1974\t1980\t2010\nlength\t292m\t366m\t350m\t1000m\ndepth\t27m\t46m\t39m\t72m\nhead rope\tPES 11mm\tPES 22mm\t PES 10mm\t PP 12mm\nfoot rope\t309m PES 12mm\t383m PES 25mm\t 370m PES 10mm\t1188m PP 12mm\nTotal Weight\t 1400kg\t3050 kg\t 3050kg\t 3500 kg\nest. metal weight\t249kg\t226kg\t200kg\t1110kg\n\nAssume rope has a weight of 0.065 kg/m at 10mm and 0.5 kg/m at 25mm"
+    }
+  ]
+}

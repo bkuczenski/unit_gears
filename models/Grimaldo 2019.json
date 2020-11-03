@@ -1,0 +1,32 @@
+{
+  "source_name": "Comparison of fishing efficiency between biodegradable gillnets and conventional nylon gillnets",
+  "source_doi": "10.1016/j.fishres.2019.01.003",
+  "source_documentation": "Compared two gillnet types and reported CPUE over 43 trials. Used nylon results; ignored novel biodegradable nets.\n...,winter season for migrating cod...",
+  "effort_models": [
+    {
+      "name": "Effort intensity for 27.5x5 m gillnets in terms of square-meter-hours",
+      "gear_types": {
+        "GilmanGear25Code": "GNS"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Square meter of net",
+      "op_unit": "Fishing hour",
+      "effort_model": ["lognormal", 7060, 1.013],
+      "op_equiv": {
+        "Year of operation": 0.0005
+      },
+      "documentation": "Assumed mean length of 90cm and used L-W formula of Walsh W(g) = 0.013*L(cm)^2.86 for gutted weight; used FAO equiv of 1.69:1 for live:gutted http://www.fao.org/3/a-bt963e.pdf"
+    }
+  ],
+  "gear_models": [
+    {
+      "name": "Gear intensity for 200-mm mesh 0.7mm dia monofilament gillnets",
+      "gear_types": {
+        "GilmanGear25Code": "GNS"
+      },
+      "scaling_unit": "Square meter of net",
+      "intensity_model": ["uniform", 0.011, 0.009],
+      "documentation": "0.7mm monofilament; 0.5 hanging ratio; 200 mm mesh; 27.5m hung length for 275 x 30 meshes"
+    }
+  ]
+}

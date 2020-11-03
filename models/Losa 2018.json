@@ -1,0 +1,16 @@
+{
+  "source_name": "Life cycle assessment of European anchovy (Engraulis encrasicolus) landed by purse seine vessels in northern Spain",
+  "source_doi": "10.1007/s11367-017-1318-7",
+  "source_documentation": "1 kg of landed round anchovy at port. Inventory data were collected for the main inputs and outputs of 32 vessels, representing a majority of vessels in the fleet.",
+  "gear_models": [
+    {
+      "name": "purse seine LCI - Cantabria Anchovy",
+      "gear_types": {
+        "GFWCategory": "seiners"
+      },
+      "scaling_unit": "One tonne landed catch",
+      "intensity_model": ["normal", 11.245, 2.022],
+      "documentation": "Losa 2018 -- 7.499 g Nylon, 3.085 g EVA, 0.661 g polysteel per kg"
+    }
+  ]
+}

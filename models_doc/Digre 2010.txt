@@ -1,0 +1,27 @@
+==========
+Tue Oct 06 12:26:48 -0700 2020
+
+mother fucking paper doesn't report the size of the damn trawl.
+
+(M/T J. Bergvoll, length 57 m, BT 1499, HP 3900)
+
+Dual trawl
+
+experimental trawl stretched length was 9.66+9.66 || codend 8.35m + 4.21m || TrL = 19.5m
+traditional trawl stretched length was 8.40m + 14.00m || codend 10.90 m   || TrL = 22.4m
+
+Sala EU Report Figure 107 correlates TrL to TrW
+
+but again we have the problem that the params are too small to interpolate
+
+
+
+Anyway, 47629 kg caught over a total of 2x16 hauls = 1488 kg per haul
+
+310.7 +- 130 kg per trawl-hour
+for these trawls of mysterious dimension.
+
+
+[ 1 hour *
+
+this is no good, with no comparable measure of gear

@@ -1,0 +1,18 @@
+{
+  "source_name": "Estimation of Bottom Trawl Catch Efficiency for Two Demersal Fishes, the Atlantic Croaker and White Perch, in Chesapeake Bay",
+  "source_doi": "10.1577/C08-048.1",
+  "source_documentation": "Research-scale trawl characterization in traditionally high-capture Chesapeake Bay",
+  "effort_models": [
+    {
+      "name": "Fishing hours - Landed catch - Chesapeake small scale trawl",
+      "gear_types": {
+        "GilmanGear25Description": "Otter trawls, bottom"
+      },
+      "catch_unit": "One tonne capture",
+      "scaling_unit": "Kilowatt of engine capacity",
+      "op_unit": "Fishing hour",
+      "effort_model": ["uniform", 388.0, 291.0],
+      "documentation": "Hoffman 2009 [DOI: 10.1577/C08-048.1] 19.8m vessel, 680kW engine [**probably not operated at high capacity**]\n20-minute trawls 784 +- 422 kg croaker; 484 +- 228 kg white perch\n 1.75-2.3 t / h => 680 / (1.75-2.3) kWh/t "
+    }
+  ]
+}

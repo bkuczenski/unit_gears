@@ -1,0 +1,37 @@
+{
+  "source_name": "Turkish driftnet fishery for Albacore, thunnus alalunga, and incidental catches in the eastern Mediterranean",
+  "source_doi": "10.3750/AIP2011.42.2.06",
+  "source_documentation": "individual nets 2000-7200 m\nvessels\nLOA 10.5-34m\nGT 7-148\nengine 25-1300 kW",
+  "effort_models": [
+    {
+      "name": "Turkish driftnet CPUE",
+      "gear_types": {
+        "FAOGearAbbrev": "GND"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "kilometer of net",
+      "op_unit": "Day of operation",
+      "effort_model": ["normal", 0.0111, 0.0013],
+      "op_equiv": {
+        "Year of operation": 0.0083
+      },
+      "documentation": "Directly reports n = 13 +- 1.6 per 1000 m per day; 90 +- 11 kg per 1000 m per day; 120 days per year is a guess"
+    }
+  ],
+  "gear_models": [
+    {
+      "name": "Turkish driftnet intensity",
+      "gear_types": {
+        "FAOGearAbbrev": "GND"
+      },
+      "scaling_unit": "kilometer of net",
+      "scaling_equiv": {
+        "Vessel length in meters": 2.35,
+        "Gross Tonnage of vessel": 10.2,
+        "Kilowatt of engine capacity": 90.0
+      },
+      "intensity_model": ["uniform", 54, 20.0],
+      "documentation": "23 tex = 23 g/km = 27.6 kg/km net at 300 mesh, 55.2kg/km at 600 mesh height\nAssuming longest net (7.2km) equals largest vessel, halved (34m, 148 GT, 1300 kW) and linear"
+    }
+  ]
+}

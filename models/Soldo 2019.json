@@ -1,0 +1,64 @@
+{
+  "source_name": "Characteristics of the Croatian anchovy purse seiner fleet",
+  "source_doi": "10.32582/aa.60.1.8",
+  "source_documentation": "Review of 113 purse seine vessels accounting for 94% of total landings",
+  "effort_models": [
+    {
+      "name": "Landed Catch by engine capacity- Croatian Purse Seine",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Kilowatt of engine capacity",
+      "op_unit": "Gear set",
+      "op_equiv": {
+        "Year of operation": 0.019,
+        "Fishing hour": 6.0
+      },
+      "effort_model": {
+        "<18m": ["normal", 82.8, 16.4],
+        "18-24m": ["normal", 118.8, 23.6],
+        ">24m": ["uniform", 147.4, 29.4]
+      },
+      "documentation": "Soldo et al 2019 [DOI: 10.32582/aa.60.1.8], Table 1 with std=20% of mean; (but see fig1). 6 hour per set is a guess for future GFW equivalency\nLargest engine is 625 kW"
+    },
+    {
+      "name": "Landed Catch by vessel LOA- Croatian Purse Seine",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Length overall in meters",
+      "op_unit": "Gear set",
+      "op_equiv": {
+        "Year of operation": 0.019,
+        "Fishing hour": 6.0
+      },
+      "effort_model": {
+        "<18m": ["normal", 7.70, 1.54],
+        "18-24m": ["normal", 8.98, 1.8],
+        ">24m": ["uniform", 9.46, 1.9]
+      },
+      "documentation": "Soldo et al 2019 [DOI: 10.32582/aa.60.1.8], Table 1 with std=20% of mean; (but see fig1). 6 hour per set is a guess for future GFW equivalency\nLongest vessel in the study is 31m"
+    },
+    {
+      "name": "Landed Catch by gross tonnage- Croatian Purse Seine",
+      "gear_types": {
+        "GilmanGear25Description": "Purse seine"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Gross tonnage of vessel",
+      "op_unit": "Gear set",
+      "op_equiv": {
+        "Year of operation": 0.019,
+        "Fishing hour": 6.0
+      },
+      "effort_model": {
+        "<18m": ["normal", 12.49, 2.5],
+        "18-24m": ["normal", 28.7, 5.74],
+        ">24m": ["uniform", 43.18, 8.63]
+      },
+      "documentation": "Soldo et al 2019 [DOI: 10.32582/aa.60.1.8], Table 1 with std=20% of mean; (but see fig1).\n 6 hour per set is a guess for future GFW equivalency\n 0.019 ~ 52 days per year, fleet average\nLargest vessel is 185 GT"
+    }
+  ]
+}

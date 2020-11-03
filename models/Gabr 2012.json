@@ -1,0 +1,36 @@
+{
+  "source_name": "Pelagic Longline Fishery for Albacore (Thunnus alalunga) in the Mediterranean Sea off Egypt",
+  "source_doi": "10.4194/1303-2712-v12_4_01",
+  "source_documentation": "http://www.trjfas.org/uploads/pdf_448.pdf",
+  "effort_models": [
+    {
+      "name": "Effort intensity 4000-4500 hook longline vessels",
+      "gear_types": {
+        "GilmanGear25Code": "LLP"
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "Number of hooks",
+      "op_unit": "Fishing day",
+      "effort_model": ["normal", 9.01, 4.4],
+      "op_equiv": {
+        "Year of operation": 0.005
+      },
+      "documentation": "Reported 110.9 +- 41.7 kg biomass per 1000 hooks per day"
+    }
+  ],
+  "gear_models": [
+    {
+      "name": "Gear intensity for Thuunus alalunga Mediterranean longline",
+      "gear_types": {
+        "GilmanGear25Code": "LLP"
+      },
+      "scaling_unit": "Number of hooks",
+      "scaling_equiv": {
+        "Vessel length in meters": 0.0036,
+        "Kilowatt of engine capacity": 0.018
+      },
+      "intensity_model": ["uniform", 0.0215, 0.0186],
+      "documentation": "11-13m 1.2mm mainline + 5m 1mm branchline per hook. 4000-4500 hooks per line = 14-17m vessels = 70-130hp"
+    }
+  ]
+}

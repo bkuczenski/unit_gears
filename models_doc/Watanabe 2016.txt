@@ -1,0 +1,56 @@
+==========
+Sun Oct 04 12:17:35 -0700 2020
+
+Watanabe 2016 = "Life Cycle Inventory Analysis for a Small-Scale
+Trawl Fishery in Sendai Bay, Japan"
+
+Sustainability 2016, 8, 399; doi:10.3390/su8040399
+
+Key data: inventory of a fleet of 10 "small" trawlers
+the inventory model is simplified.
+
+good list of references to check
+
+Not clear whether they accounted for gear maintenance or only gear construction.
+
+"Because items such as fishing boats and fishing gear are used for several years, their lifetimes were assigned values of 30 years and 3 years, respectively."
+
+So, usage over a year was assigned:
+1667 kg nets
+1667 kg trawl line
+1667 kg ground rope
+333 pieces net float
+6.7 pieces otter board
+166.7 pieces weight
+333.7 [typo?] kg fishing gear accessory
+
+212 t landed catch for the year [[ what about bycatch? ]]:
+  78.7 t brown sole
+  20.2 t stone flounder
+  13.5 t marbled sole
+   8.0 t olive flounder
+  91.5 t all others
+
+there is the issue of bycatch... according to Gilman, increase the catch by 36-44%
+
+let's say 300 t catch + bycatch
+
+Omitting weights, otter boards, and accessories, this leads to a gear weight of 5333 kg gear [allocated] divided into 300 t total capture = 56.3 capture *per year of operation* [this still needs to be in there!]
+or 0.0178 kg gear*year per kg catch 
+
+
+322,046 L heavy fuel oil
+
+for this small scale trawl study we can figure most fuel use is during fishing operations [because trawl is fuel intensive and because in this study the fishing grounds are near-shore in a bay
+
+so the fuel use, or maybe 75% or maybe 90% of the fuel use, can be allocated to fishing operations- giving us kwh/t
+
+322046 L heavy fuel oil * 0.75 alloc to fishing time * 10-10.5 kWh/L / 212 t
+ = 2.4-2.5 x 10^6 / 300 ==> 8000-8500 kWh/t
+ that figure is quite high compared to the industrial / GFW estimates
+
+about 1100 kWh/t corresponds to CHN and RUS GFW stats
+
+well. There are plenty of data points in the vicinity of 8000 kwh/t
+
+

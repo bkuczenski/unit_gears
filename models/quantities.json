@@ -1,0 +1,32 @@
+{
+  "user note": "A quantity specification is: [canonical name, unit, *synonyms]\nEach synonym must be unique within the stage.  names are not case-sensitive.",
+  "quantities": {
+    "catch": [
+      ["One tonne landed catch", "t"],
+      ["One tonne capture", "tC"]
+   ],
+    "scaling": [
+      ["Gross Tonnage of vessel", "GT"],
+      ["Kilowatt of engine capacity", "kW", "Kilowatts of engine capacity"],
+      ["Length of line", "m-line", "Mainline length", "Length of trawl headline"],
+      ["kilometer of net", "km", "Driftnet length"],
+      ["Square meter of net", "m2", "net area", "Effective net area"],
+      ["Enclosed volume", "m3", "pot/trap volume"],
+      ["Number of hooks", "hooks", "Branchlines"],
+      ["Vessel length in meters", "m", "Length overall in meters"],
+      ["Effort for one tonne landed catch", "t-eff", "One tonne landed catch"],
+      ["Effort for one tonne capture", "t-eff", "One tonne capture"]
+    ],
+    "operation": [
+      ["Vessel life cycle", "vlt", "Vessel lifetime"],
+      ["Catch life cycle", "vlc"],
+      ["Gear lifetime", "glt", "gear life"],
+      ["Gear set", "set"],
+      ["Hour of operation", "h"],
+      ["Day of operation", "d"],
+      ["Year of operation", "yr"],
+      ["Fishing hour", "hf"],
+      ["Fishing day", "df"]
+    ]
+  }
+}

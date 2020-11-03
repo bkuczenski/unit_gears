@@ -1,0 +1,12 @@
+==========
+Fri Oct 30 18:32:14 -0700 2020
+
+Walsh and Hiscock 2005 - experimental pot vs gillnet for cod fishing
+extensive CPUE reporting
+
+pThe number of cod captured per hour of soak time per pot type
+was used to calculate the CPUE + 1. Zero plus one factor is used in statistical analysis to allow
+data to be adjusted to eliminate zero values, which can skew data. This CPUE (number of fish
+per hour + 1) was Log10 transformed for the analysis of variance (ANOVA). This would
+rationalize data providing more accurate values of significance.
+

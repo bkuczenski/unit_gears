@@ -1,0 +1,40 @@
+{
+  "source_name": "LCI-based model",
+  "source_doi": "none",
+  "source_documentation": "Trivial catch-effort relation for life cycle studies",
+  "effort_models": [
+    {
+      "name": "Life Cycle Inventory - Landed Catch",
+      "gear_types": {
+        "GFWCategory": [
+          "pole_and_line",
+          "set_longlines",
+          "drifting_longlines",
+          "trollers",
+          "squid_jigger",
+          "pots_and_traps",
+          "set_gillnets",
+          "dredge_fishing",
+          "trawlers",
+          "seiners",
+          "driftnets",
+          "other_fishing",
+          "fishing",
+          "fixed_gear"
+        ]
+      },
+      "catch_unit": "One tonne landed catch",
+      "scaling_unit": "One tonne landed catch",
+      "op_unit": "Catch life cycle",
+      "op_equiv": {
+        "Gear set": 1.0,
+        "Hour of operation": 1.0,
+        "Day of operation": 1.0,
+        "Year of operation": 1.0,
+        "Fishing hour": 1.0
+      },
+      "effort_model": 1.0,
+      "documentation": "Standard life-cycle basis applied to mass of catch"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+==========
+Tue Oct 06 10:59:54 -0700 2020
+
+It's a pretty small trawl: HL 13.7m
+moreover it appears to be cotton, not nylon (!)
+4-panel trawl OTB4
+
+From our research we determined that the vessel was 19.8m and had apparently 680 kW power rating (which seems high)
+twin 450 hp engines * 750w/hp = sure about 340 kw.
+
+As Camila observed, the data seem to report COUNT of fish, not weight.
+let's look to fishbase to see if we can get typical weight of chesapeake bay croaker and white perch
+fishbase lists a maximum reported weight of 2.6kg, max length of 55 cm
+but nothing typical
+
+And white perch-- 58.0cm / 2.7kg max l/w
+
+Google reports an uncomplicated 3.1 lb (1.4kg) for atlantic croaker and 2.7 lbs (1.2kg) for white perch.
+
+well anyway, for 28 croaker trawls we get an average of 560 +-302 units = 784 +- 422 kg per 20 min trawl = 2.3 t/h ==> 291 kwh/t
+and Watanabe is 8500 kwh/t??
+
+These are highly-efficient trawls. but that is actually in the middle of the pack in GFW.
+
+Trawls were "standardized to 20 min" but a few had distinctly shorter durations. leaving those out we get 588 +- 288
+not much different
+
+for perch avg 484.2 +- 228 * 1.2 kg/fish x3 = 1750 kg / h ==> 388 kwh/t
+
+
+Those are usable.
+
+Let's try applying the Notti model to characterize the trawl weight--
+our headline is 13.7m and square width which is much shorter than any cohort reported in Sala et al 2019... the smallest being 25.44m
+in fact, it's smaller than the smallest headline reported in Notti 2013 (minimum 21m)
+
+How can we estimate the weight of gear from this dimension?
+
+I mean, from our affine relationship it's nearly 0. This is just a very tiny trawl. 30-50kg?
+What is the minimum TrW reported?
+
+EU Rpt Table 10:
+OTB2
+Minimum HL 12.30m;
+minimum FL 17.80;
+minimum TrW 7.94
+
+OTB4
+minimum HL  18.60m;
+minimum FL  25.58m;
+minimum TrW 21.88

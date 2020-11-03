@@ -1,0 +1,41 @@
+==========
+Sun Oct 25 21:50:10 -0700 2020
+
+European anchovy purse seine
+
+T1 we have total landings of 196 / 0.435 tonnes or 420-odd tonnes +- 103
+
+scope was 1 year of activity
+FU was 1 kg landed catch
+
+I don't understand why Table 1 lists <500 tonnes when Fig1 showes ~7000 tonnes
+but that's neither here nor there
+
+The point is table 2+3:
+1 kg European Anchovy
+ 5.17 g  Nylon in construction
+ 2.33 g  Nylon in maint
+ 7.5  g  EOL
+
+plus 3.085 EVA, split along the same ratio
+0.661 g "polysteel"
+
+11.245 g / kg = kg / t
+SD = 
+
+dissipation being 25% of total?
+
+45% of the mass was brought in at maintenance, so that is the dissipative fraction
+45/145 or 31%
+
+I'm supposed to do 6 of these?
+I don't think that paper's going to happen
+
+
+
+
+Total lifecycle plastics were 49.39 g in Table 3
+
+lifespan 5 years
+25% annual replacement
+ok, boom.

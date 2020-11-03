@@ -1,0 +1,46 @@
+==========
+Fri Oct 30 18:19:41 -0700 2020
+
+Comparison of fishing efficiency between biodegradable gillnets and conventional nylon gillnets
+
+Two experimental gillnets, well specified:
+
+Each gillnet had 210 mm nominal mesh opening, was made of 0.7 mm monofilament, and was 30 meshes in height and 275 meshes long (approx. 55 m stretched length).
+
+Consequently, an assembled gillnet was 27.5 m long and had a hanging ratio of 0.5.
+
+https://www.netsandmore.com/123-how-to/246-hanging-ratios
+
+relates hanging ratio to width-height ratios of mesh.
+50%: 86% H 50% L
+
+So, 275 meshes * 200 mm mesh * 50% hanging ratio = 27.5 m
+30 meshes * 200mm mesh * 86% hanging ratio = 5.2 m
+
+Catch was 
+
+We used two sets of gillnets in the experiments. Each set consisted of 16 gillnets, with eight bio gillnets (B) and eight nylon gillnets (N).
+
+A total of 5103 cod were caught in the 43 gillnets deployments that
+were included in the analysis, with 2243 and 2850 cod caught by the
+bio gillnets and nylon gillnets respectively. Daily catches that varied
+between 73 and 498 cod. The mean effective fishing time (SD) (the time
+the gillnets remained at the sea bed) was 21 h 14 min (4 h 54 min). The
+mean (SD) fishing depth was 95.7 m (10.8 m).
+
+
+Length-gutted weight reported in Walsh 2005 (see also) as
+"Based on the total length–gutted weight relationship for northeast Atlantic cod W = 0.013×L^2.86 (Walsh and Hiscock, 2005)..."
+
+Meanwhile, FAO http://www.fao.org/3/a-bt963e.pdf
+reports Cod Gutted, head on * 1.2 = live weight
+        Cod Gutted, head off * 1.69 = live weight
+
+
+Anywayyys, figured it out
+Effort/catch = ["lognormal", 7060, 1.013]  # m2h/t
+Gear intensity = 0.0101 kg/ hung m2
+
+
+
+

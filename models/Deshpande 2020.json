@@ -1,0 +1,85 @@
+{
+  "source_name": "Using Material Flow Analysis (MFA) to generate the evidence on plastic waste management from commercial fishing gears in Norway",
+  "source_doi": "10.1016/j.rcrx.2019.100024",
+  "source_documentation": "114 surveys to fishermen, plus extensive contacts with suppliers - STAN stochastic MFA flow model to estimate flows into the ocean\nvery little information on gear use; not helpful for effort or gear intensity modeling.\nDissipation models (incl. gear lifetimes) in Supplementary Tables S4 and S9.\nNote: The dissipation rates in S9 are extremely tiny! They appear to be erroneously divided by 100x between Table S4 and Table S9, raising doubts about the study.",
+  "dissipation_models": [
+    {
+      "name": "Norway - Trawls - Lost to ocean",
+      "documentation": "Supplementary Table S4 - transfer coefficient of owned stock to loss",
+      "gear_types": {
+        "GilmanGear8Name": "trawl"
+      },
+      "op_unit": "Year of operation",
+      "op_equiv": {
+        "Gear lifetime": 0.36
+      },
+      "dissipation_type": "lost",
+      "dissipation_model": ["Uniform", 0.043, 0.019]
+    },
+    {
+      "name": "Norway - Purse Seine - Lost to ocean",
+      "documentation": "Supplementary Table S4 - transfer coefficient of owned stock to loss",
+      "gear_types": {
+        "FAOGearAbbrev": "PS"
+      },
+      "op_unit": "Year of operation",
+      "op_equiv": {
+        "Gear lifetime": 0.098
+      },
+      "dissipation_type": "lost",
+      "dissipation_model": ["Uniform", 0.01, 0.001]
+    },
+    {
+      "name": "Norway - Danish Seine - Lost to ocean",
+      "documentation": "Supplementary Table S4 - transfer coefficient of owned stock to loss",
+      "gear_types": {
+        "FAOGearAbbrev": "SDN"
+      },
+      "op_unit": "Year of operation",
+      "op_equiv": {
+        "Gear lifetime": 0.26
+      },
+      "dissipation_type": "lost",
+      "dissipation_model": ["Uniform", 0.025, 0.011]
+    },
+    {
+      "name": "Norway - Gillnets - Lost to ocean",
+      "documentation": "Supplementary Table S4 - transfer coefficient of owned stock to loss",
+      "gear_types": {
+        "GilmanGear8Name": "net"
+      },
+      "op_unit": "Year of operation",
+      "op_equiv": {
+        "Gear lifetime": 0.48
+      },
+      "dissipation_type": "lost",
+      "dissipation_model": ["Uniform", 0.013, 0.007]
+    },
+    {
+      "name": "Norway - Longlines - Lost to ocean",
+      "documentation": "Supplementary Table S4 - transfer coefficient of owned stock to loss",
+      "gear_types": {
+        "GilmanGear8Name": "longline"
+      },
+      "op_unit": "Year of operation",
+      "op_equiv": {
+        "Gear lifetime": 0.33
+      },
+      "dissipation_type": "lost",
+      "dissipation_model": ["Uniform", 0.053, 0.035]
+    },
+    {
+      "name": "Norway - Pots/Traps - Lost to ocean",
+      "documentation": "Supplementary Table S4 - transfer coefficient of owned stock to loss",
+      "gear_types": {
+        "GilmanGear8Name": "pot"
+      },
+      "op_unit": "Year of operation",
+      "op_equiv": {
+        "Gear lifetime": 0.16
+      },
+      "dissipation_type": "lost",
+      "dissipation_model": ["Uniform", 0.056, 0.026]
+    }
+  ]
+}
