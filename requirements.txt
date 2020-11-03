@@ -1,0 +1,2 @@
+stats_arrays>=0.6.4
+synonym_dict>=0.1.1
