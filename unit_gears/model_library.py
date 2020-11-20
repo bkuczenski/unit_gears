@@ -221,17 +221,33 @@ class GearModelLibrary(object):
         count = 0
 
         for eff in self.effort_models(ecs, family=effort_family):
-            for gea in self.gear_models(ecs, family=gear_family):
-                for dis in self.dissipation_models(ecs, family=dissipation_family):
-                    try:
-                        gm = GearModel(eff, gea, dis)
-                    except ConflictingUnits as e:
-                        err = '%s: %s' % (e.__class__.__name__, e)
-                        self._print('%s-%s-%s ... failed %s' % (eff, gea, dis, err), verbose=verbose)
-                        continue
-                    self._print('%d: %s-%s-%s passed' % (count, eff, gea, dis), verbose=verbose)
-                    yield gm
-                    count += 1
+            for gm in self.link_effort_model(eff, gear_family=gear_family, dissipation_family=dissipation_family,
+                                             verbose=verbose, _ecs=ecs):
+                self._print('%d: %s-%s-%s passed' % (count, eff, gm.gear, gm.dissipation), verbose=verbose)
+                yield gm
+                count += 1
+
+    def link_effort_model(self, eff, gear_family=None, dissipation_family=None, verbose=None, _ecs=None):
+        """
+        This allows
+        :param eff:
+        :param gear_family:
+        :param dissipation_family:
+        :param verbose:
+        :param _ecs: pass a more limiting set of
+        :return:
+        """
+        if _ecs is None:
+            _ecs = eff.gear_ecs
+        for gea in self.gear_models(_ecs, family=gear_family):
+            for dis in self.dissipation_models(_ecs, family=dissipation_family):
+                try:
+                    gm = GearModel(eff, gea, dis)
+                except ConflictingUnits as e:
+                    err = '%s: %s' % (e.__class__.__name__, e)
+                    self._print('%s-%s-%s ... failed %s' % (eff, gea, dis, err), verbose=verbose)
+                    continue
+                yield gm
 
     @staticmethod
     def models_report(models, e_param=None, g_param=None, d_param=None):

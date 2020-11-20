@@ -6,7 +6,7 @@ for which each parameter can be either static or uncertain.
 from stats_arrays import (UncertaintyBase, MCRandomNumberGenerator, NormalUncertainty, LognormalUncertainty, \
     UniformUncertainty, TriangularUncertainty, NoUncertainty)
 
-from math import log
+from math import log, exp
 
 
 class EmptyModel(Exception):
@@ -80,7 +80,7 @@ class PolynomialModel(object):
             orders.append(tuple(coef))
         return orders
 
-    def __init__(self, *args, bounded=True):
+    def __init__(self, *args, bounded=True, log=False, log10=False):
         """
         Generate a polynomial model, with or without uncertainty.  The number of positional args determines the
         order of the model.
@@ -95,10 +95,17 @@ class PolynomialModel(object):
          ('static', mean) # no uncertainty
 
         :param args:
+        :param log: [False] Model applies to log-transformed data; the computation returns exp(result)
+        :param log10: [False] Model applies to log10-transformed data; the computation returns 10**(result). An error
+        is raised if both log and log10 are set to True.
         :param bounded: [True] bound normal distributions on the same side of 0 as loc, for stability purposes.
         """
         if len(args) == 0:
             raise EmptyModel()
+        self._log = bool(log)
+        self._log10 = bool(log10)
+        if self._log and self._log10:
+            raise ValueError('Cannot specify both log and log10')
         if isinstance(args[0], str):
             # 0-order uncertain model specified with positional params
             args = self._re_parse_args(args)
@@ -118,6 +125,10 @@ class PolynomialModel(object):
         y = arr[0]
         for i in range(self.order):
             y += arr[i+1] * x**(i+1)
+        if self._log:
+            return exp(y)
+        elif self._log10:
+            return 10 ** y
         return y
 
     def mean(self, value=0.0):
@@ -135,8 +146,17 @@ class PolynomialModel(object):
     def _coef(self):
         return ';'.join(['%d:%.3g%s' % (i, self._means[i], self._p_str(k)) for i, k in enumerate(self._params)])
 
+    @property
+    def _exp(self):
+        if self._log:
+            return 'exp '
+        elif self._log10:
+            return '10 ** '
+        else:
+            return ''
+
     def __str__(self):
-        return 'y ~ %s (x)' % self._coef
+        return 'y ~ %s%s (x)' % (self._exp, self._coef)
 
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self._coef)
@@ -148,8 +168,9 @@ class DiscreteChoiceRequired(Exception):
 
 class DiscreteModel(object):
     """
-    A mapping of discrete params to 0-order models, with or without uncertainty. In a discrete model, the param
-    is used to select from a range of alternative models.
+    A mapping of discrete params to 0-order models, with or without uncertainty. In a discrete model, a qualitative
+    param (dict lookup) is used to select from a range of alternative models. The models must have 0-order because
+    at the moment there is no mechanism to pass a second param to be used as the model input.
     """
     def __init__(self, **params):
         self._models = dict()
