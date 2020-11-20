@@ -19,6 +19,11 @@ class EmptyModel(Exception):
 class InoperableModel(Exception):
     """
     Discrete models must be 0-order because they cannot take parameters
+
+    This should not apply to multimodal continuous models [not yet implemented] where the param values are numeric
+    and the model selection param is also used as the model input. In these cases, the keys would be ordered, and the
+    model selected would be the least-greater-valued key.  The highest-valued key thus signifies an upper bound for
+    the param.
     """
     pass
 
@@ -29,7 +34,13 @@ class PolynomialModel(object):
             typ = arg[0].lower()[0]  # ignore typos (and i18n) with this simple trick!
             mean = float(arg[1])
             if typ == 'n':
-                d = {'loc': float(arg[1]), 'scale': float(arg[2]), 'minimum': 0.0, 'uncertainty_type': NormalUncertainty.id}
+                d = {'loc': float(arg[1]), 'scale': float(arg[2]), 'uncertainty_type': NormalUncertainty.id}
+                if self.bounded:
+                    # bound normal distributions on the same side of 0 for stability purposes
+                    if d['loc'] > 0:
+                        d['minimum'] = d['loc'] / 1e3
+                    elif d['loc'] < 0:
+                        d['maximum'] = d['loc'] / 1e3
             elif typ == 'l':  # take log of the data
                 d = {'loc': log(float(arg[1])), 'scale': float(arg[2]), 'uncertainty_type': LognormalUncertainty.id}
             elif typ == 'u':
@@ -52,10 +63,10 @@ class PolynomialModel(object):
     def _p_str(k):
         return {
             NoUncertainty.id: '',
-            NormalUncertainty.id: 'N',
-            LognormalUncertainty.id: 'L',
-            TriangularUncertainty.id: 'T',
-            UniformUncertainty.id: 'U'
+            NormalUncertainty.id: ' N',
+            LognormalUncertainty.id: ' L',
+            TriangularUncertainty.id: ' T',
+            UniformUncertainty.id: ' U'
         }[k['uncertainty_type']]
 
     @staticmethod
@@ -69,7 +80,7 @@ class PolynomialModel(object):
             orders.append(tuple(coef))
         return orders
 
-    def __init__(self, *args):
+    def __init__(self, *args, bounded=True):
         """
         Generate a polynomial model, with or without uncertainty.  The number of positional args determines the
         order of the model.
@@ -82,7 +93,9 @@ class PolynomialModel(object):
          ('uniform', high, low)
          ('triangular', mode, high, low)
          ('static', mean) # no uncertainty
+
         :param args:
+        :param bounded: [True] bound normal distributions on the same side of 0 as loc, for stability purposes.
         """
         if len(args) == 0:
             raise EmptyModel()
@@ -91,6 +104,7 @@ class PolynomialModel(object):
             args = self._re_parse_args(args)
         self._params = []
         self._means = []
+        self.bounded = bounded
         for arg in args:
             self._make_stats_array_input(arg)
 
@@ -119,7 +133,7 @@ class PolynomialModel(object):
 
     @property
     def _coef(self):
-        return ';'.join(['%d:%.3g %s' % (i, self._means[i], self._p_str(k)) for i, k in enumerate(self._params)])
+        return ';'.join(['%d:%.3g%s' % (i, self._means[i], self._p_str(k)) for i, k in enumerate(self._params)])
 
     def __str__(self):
         return 'y ~ %s (x)' % self._coef
@@ -134,7 +148,8 @@ class DiscreteChoiceRequired(Exception):
 
 class DiscreteModel(object):
     """
-    A mapping of discrete params to 0-order models, with or without uncertainty
+    A mapping of discrete params to 0-order models, with or without uncertainty. In a discrete model, the param
+    is used to select from a range of alternative models.
     """
     def __init__(self, **params):
         self._models = dict()
