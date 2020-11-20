@@ -1,0 +1,42 @@
+==========
+Tue Nov 17 16:47:24 -0800 2020
+
+Gathering purse seine technical information (thanks to M. Musyl)
+
+Ana Marçalo, et al - S. S. Uhlmann et al. (eds.), The European Landing Obligation,
+Ch. 15  Mitigating Slipping-Related Mortality from Purse Seine Fisheries for Small Pelagic Fish: Case Studies from European Atlantic Waters
+https://doi.org/10.1007/978-3-030-03308-8_15
+
+In the GFW catch-effort results, the T-score and P-value say tonnage is far and away the most significant predictor of effort (0.00019 vs 0.025 [kw] vs 0.895 [LOA])
+
+Table 15.1 gives vessel size and net dimensions, Reproduced here:
+
+country-fleet; # vessels ; hold cap t ; HP ; LOA; GRT ; net length ; depth ; mesh
+Norway offshore; 73; <1500; 4660; 63 (45-80); 2500 (1000-4000); 400-850; 100-265; 15-18
+Norway inshore ; 300 ; <500; 500; 35 (15-55); 300(100-500); 400-700; 100-150; 15-18
+Spain Cantabria; 262; <100; 330 (210-780); 23 (12-36); 83(52-247); <600; 120; 14
+Portugal-mainland; 180; <20; 265(15-600); 17(6-27); 30(5-95); <800; <120; 18
+
+Those don't exactly track each other too well
+
+
+See misc Seiners in ODS spreadsheet
+
+We see a cluster in the range of 200-800 m2/GT, and 0.04-0.14 kg/m2
+That's good enough for govt work.
+
+Wed 2020-11-18 11:39:15 -0800
+
+To summarize individual data points, we have (m2 per GT reported):
+
+norway offshore lo: 40.0,
+norway offshore hi: 56.3,
+norway inshore lo: 210.0,
+norway inshore hi: 400.0,
+spain lo: 292.0,
+spain hi: 692.3,
+portugal lo: 252.0,
+portugal hi: 1010.0,
+indonesia lo: 310.0,
+indonesia hi: 847.9
+
