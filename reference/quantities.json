@@ -13,7 +13,7 @@
       ["Square meter of net", "m2", "net area", "Effective net area"],
       ["Enclosed volume", "m3", "pot/trap volume"],
       ["Number of hooks", "hooks", "Branchlines"],
-      ["Vessel length in meters", "m", "Length overall in meters"],
+      ["Vessel length in meters", "m", "Length overall in meters", "LOA"],
       ["Effort for one tonne landed catch", "t-eff", "One tonne landed catch"],
       ["Effort for one tonne capture", "t-eff", "One tonne capture"]
     ],

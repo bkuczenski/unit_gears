@@ -18,6 +18,9 @@ from .stages import CatchEffort, GearIntensity, Dissipation
 from .query import GearModel, ConflictingUnits  # , ConflictingParams, NoValidParams  # , ZeroValuedModel
 
 
+REFERENCE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'reference'))
+MODELS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models'))
+
 MODEL_STAGES = ('effort', 'gear', 'dissipation')
 
 
@@ -35,9 +38,15 @@ class GearModelLibrary(object):
 
     def _load(self, lib_path, overwrite=False, verbose=None):
         # First load quantities
-        with open(os.path.join(lib_path, 'quantities.json')) as fp:
-            j = json.load(fp)
-            self._load_quantities(j.pop('quantities'))
+        if lib_path not in self._paths:
+            self._paths.append(lib_path)
+        try:
+            with open(os.path.join(lib_path, 'quantities.json')) as fp:
+                j = json.load(fp)
+                self._load_quantities(j.pop('quantities'))
+        except FileNotFoundError:
+            if len(list(self.quantities())) == 0:
+                print('Note: no quantities.json found in path %s' % lib_path)
         for f in os.listdir(lib_path):
             family, ext = os.path.splitext(f)
             if ext.lower() != '.json':
@@ -54,7 +63,7 @@ class GearModelLibrary(object):
                 self._load_gear(family, source_doc, j.pop('gear_models', []), overwrite=overwrite, verbose=verbose)
                 self._load_diss(family, source_doc, j.pop('dissipation_models', []), overwrite=overwrite, verbose=verbose)
 
-    def load_all(self, lib_path, overwrite=True, verbose=True):
+    def load_path(self, lib_path, overwrite=True, verbose=True):
         self._load(lib_path, overwrite=overwrite, verbose=verbose)
 
     def _load_quantities(self, qdict):
@@ -67,9 +76,9 @@ class GearModelLibrary(object):
     def _load_effort(self, family, source_doc, entries, overwrite=False, verbose=None):
         for entry in entries:
             self._print('Adding effort model %s' % entry['name'], verbose=verbose)
-            entry['catch_unit'] = self._q['catch'][entry.pop('catch_unit')]
-            entry['scaling_unit'] = self._q['scaling'][entry.pop('scaling_unit')]
-            entry['op_unit'] = self._q['operation'][entry.pop('op_unit')]
+            entry['catch_unit'] = self.get_quantity(entry.pop('catch_unit'), measure='catch')
+            entry['scaling_unit'] = self.get_quantity(entry.pop('scaling_unit'), measure='scaling')
+            entry['op_unit'] = self.get_quantity(entry.pop('op_unit'), measure='operation')
             e = CatchEffort(family, source_doc=source_doc, **entry)
             if e.name in self._e:
                 if overwrite:
@@ -82,7 +91,7 @@ class GearModelLibrary(object):
     def _load_gear(self, family, source_doc, entries, overwrite=False, verbose=None):
         for entry in entries:
             self._print('Adding gear intensity model %s' % entry['name'], verbose=verbose)
-            entry['scaling_unit'] = self._q['scaling'][entry.pop('scaling_unit')]
+            entry['scaling_unit'] = self.get_quantity(entry.pop('scaling_unit'), measure='scaling')
             g = GearIntensity(family, source_doc=source_doc, **entry)
             if g.name in self._g:
                 if overwrite:
@@ -95,7 +104,7 @@ class GearModelLibrary(object):
     def _load_diss(self, family, source_doc, entries, overwrite=False, verbose=False):
         for entry in entries:
             self._print('Adding dissipation model %s' % entry['name'], verbose=verbose)
-            entry['op_unit'] = self._q['operation'][entry.pop('op_unit')]
+            entry['op_unit'] = self.get_quantity(entry.pop('op_unit'), measure='operation')
             d = Dissipation(family, source_doc=source_doc, **entry)
             if d.name in self._d:
                 if overwrite:
@@ -105,7 +114,7 @@ class GearModelLibrary(object):
                     continue
             self._d[d.name] = d
 
-    def __init__(self, lib_path, verbose=False, **kwargs):
+    def __init__(self, *paths, verbose=False, **kwargs):
         """
 
         :param gears_path: folder containing
@@ -119,7 +128,40 @@ class GearModelLibrary(object):
         self._e = dict()
         self._g = dict()
         self._d = dict()
-        self._load(lib_path, verbose=verbose)
+        self._paths = []
+        self._load(REFERENCE_DIR, verbose=verbose)
+        for lib_path in paths:
+            self._load(lib_path, verbose=verbose)
+
+    def _yield_from_meas(self, meas):
+        for k in sorted(self._q[meas].objects, key=lambda x: x.name):
+            yield self._q[meas][k]
+
+    def quantities(self, measure=None):
+        if measure is not None:
+            if measure in self._q:
+                for q in self._yield_from_meas(measure):
+                    yield q
+            else:
+                yield ValueError('Unknown measure %s' % measure)
+        else:
+            for meas in MEASURES:
+                for q in self._yield_from_meas(meas):
+                    yield q
+
+    def get_quantity(self, name, measure=None):
+        q = None
+        if measure is None or measure not in MEASURES:
+            for v in self._q.values():
+                try:
+                    q = v[name]
+                except KeyError:
+                    continue
+        else:
+            q = self._q[measure][name]
+        if q is None:
+            raise InvalidQuantity(name)
+        return q
 
     @property
     def effort_names(self):
@@ -191,7 +233,8 @@ class GearModelLibrary(object):
                     yield gm
                     count += 1
 
-    def models_report(self, models, e_param=None, g_param=None, d_param=None):
+    @staticmethod
+    def models_report(models, e_param=None, g_param=None, d_param=None):
         """
         :param models: an iterable of models, e.g. the output of valid_models
         :param e_param: effort param value used for report generation
