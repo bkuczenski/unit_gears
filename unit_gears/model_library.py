@@ -53,15 +53,20 @@ class GearModelLibrary(object):
                 continue
             if family.lower() == 'quantities':
                 continue
-            with open(os.path.join(lib_path, f)) as fp:
-                try:
-                    j = json.load(fp)
-                except json.JSONDecodeError:
-                    continue
-                source_doc = '\n'.join('%s: %s' %(k, v) for k, v in j.items() if k.startswith('source_'))
-                self._load_effort(family, source_doc, j.pop('effort_models', []), overwrite=overwrite, verbose=verbose)
-                self._load_gear(family, source_doc, j.pop('gear_models', []), overwrite=overwrite, verbose=verbose)
-                self._load_diss(family, source_doc, j.pop('dissipation_models', []), overwrite=overwrite, verbose=verbose)
+            try:
+                self.load_family(lib_path, family, overwrite=overwrite, verbose=verbose)
+            except json.JSONDecodeError:
+                continue
+
+    def load_family(self, lib_path, family, overwrite=False, verbose=None):
+        if family.lower() == 'quantities':
+            raise AttributeError('quantities.json is not a data family')
+        with open(os.path.join(lib_path, family + '.json')) as fp:
+            j = json.load(fp)
+        source_doc = '\n'.join('%s: %s' %(k, v) for k, v in j.items() if k.startswith('source_'))
+        self._load_effort(family, source_doc, j.pop('effort_models', []), overwrite=overwrite, verbose=verbose)
+        self._load_gear(family, source_doc, j.pop('gear_models', []), overwrite=overwrite, verbose=verbose)
+        self._load_diss(family, source_doc, j.pop('dissipation_models', []), overwrite=overwrite, verbose=verbose)
 
     def load_path(self, lib_path, overwrite=True, verbose=True):
         self._load(lib_path, overwrite=overwrite, verbose=verbose)
@@ -80,39 +85,43 @@ class GearModelLibrary(object):
             entry['scaling_unit'] = self.get_quantity(entry.pop('scaling_unit'), measure='scaling')
             entry['op_unit'] = self.get_quantity(entry.pop('op_unit'), measure='operation')
             e = CatchEffort(family, source_doc=source_doc, **entry)
-            if e.name in self._e:
-                if overwrite:
-                    print('Overwriting model %s' % e.name)
-                else:
-                    print('Not overwriting model %s' % e.name)
-                    continue
-            self._e[e.name] = e
+            self.add_effort_model(e, overwrite=overwrite)
+
+    def add_effort_model(self, e, overwrite=False):
+        assert isinstance(e, CatchEffort)
+        self._add_model(e, self._e, overwrite=overwrite)
 
     def _load_gear(self, family, source_doc, entries, overwrite=False, verbose=None):
         for entry in entries:
             self._print('Adding gear intensity model %s' % entry['name'], verbose=verbose)
             entry['scaling_unit'] = self.get_quantity(entry.pop('scaling_unit'), measure='scaling')
             g = GearIntensity(family, source_doc=source_doc, **entry)
-            if g.name in self._g:
-                if overwrite:
-                    print('Overwriting model %s' % g.name)
-                else:
-                    print('Not overwriting model %s' % g.name)
-                    continue
-            self._g[g.name] = g
+            self.add_gear_model(g, overwrite=overwrite)
+
+    def add_gear_model(self, g, overwrite=False):
+        assert isinstance(g, GearIntensity)
+        self._add_model(g, self._g, overwrite=overwrite)
 
     def _load_diss(self, family, source_doc, entries, overwrite=False, verbose=False):
         for entry in entries:
             self._print('Adding dissipation model %s' % entry['name'], verbose=verbose)
             entry['op_unit'] = self.get_quantity(entry.pop('op_unit'), measure='operation')
             d = Dissipation(family, source_doc=source_doc, **entry)
-            if d.name in self._d:
-                if overwrite:
-                    print('Overwriting model %s' % d.name)
-                else:
-                    print('Not overwriting model %s' % d.name)
-                    continue
-            self._d[d.name] = d
+            self.add_dissipation_model(d, overwrite=overwrite)
+
+    def add_dissipation_model(self, d, overwrite=False):
+        assert isinstance(d, Dissipation)
+        self._add_model(d, self._d, overwrite=overwrite)
+
+    @staticmethod
+    def _add_model(m, target, overwrite=False):
+        if m.name in target:
+            if overwrite:
+                print('Overwriting model %s' % m.name)
+            else:
+                print('Not overwriting model %s' % m.name)
+                return
+        target[m.name] = m
 
     def __init__(self, *paths, verbose=False, **kwargs):
         """
@@ -188,29 +197,51 @@ class GearModelLibrary(object):
                 return False
         return True
 
-    def effort_models(self, ec=None, family=None):
-        for k in self.effort_names:
-            v = self._e[k]
+    def effort_models(self, ec=None, family=None, effort=None):
+        try:
+            v = self._e[effort]
             if self._check_model(v, ec=ec, family=family):
                 yield v
+        except KeyError:
+            for k in self.effort_names:
+                v = self._e[k]
+                if self._check_model(v, ec=ec, family=family):
+                    yield v
 
-    def gear_models(self, ec=None, family=None):
-        for k in self.gear_names:
-            v = self._g[k]
+    def gear_models(self, ec=None, family=None, gear=None):
+        try:
+            v = self._g[gear]
             if self._check_model(v, ec=ec, family=family):
                 yield v
+        except KeyError:
+            for k in self.gear_names:
+                v = self._g[k]
+                if self._check_model(v, ec=ec, family=family):
+                    yield v
 
-    def dissipation_models(self, ec=None, family=None):
-        for k in self.dissipation_names:
-            v = self._d[k]
+    def dissipation_models(self, ec=None, family=None, dissipation=None):
+        try:
+            v = self._d[dissipation]
             if self._check_model(v, ec=ec, family=family):
                 yield v
+        except KeyError:
+            for k in self.dissipation_names:
+                v = self._d[k]
+                if self._check_model(v, ec=ec, family=family):
+                    yield v
 
-    def valid_models(self, gear_types, verbose=None, effort_family=None, gear_family=None, dissipation_family=None):
+    def valid_models(self, gear_types, verbose=None,
+                     effort=None, gear=None, dissipation=None,
+                     effort_family=None, gear_family=None, dissipation_family=None):
         """
         Generate valid triples of (catch-effort, gear-intensity, dissipation) for the specified gear and parameters.
+        {effort, gear, dissipation} = strict matching to name of desired model (still subject to gear type matching)
+        {effort_family, gear_family, dissipation_family} = filter when family name starts with supplied string
         :param gear_types: a dict of {family: gear} or {family: [gear1, ...]}
         :param verbose:
+        :param effort: literal name to only match
+        :param gear: "
+        :param dissipation: "
         :param effort_family: Filter by <family>.lower()startswith(<arg>.lower())
         :param gear_family: "
         :param dissipation_family: "
@@ -220,17 +251,21 @@ class GearModelLibrary(object):
 
         count = 0
 
-        for eff in self.effort_models(ecs, family=effort_family):
-            for gm in self.link_effort_model(eff, gear_family=gear_family, dissipation_family=dissipation_family,
+        for eff in self.effort_models(ecs, family=effort_family, effort=effort):
+            for gm in self.link_effort_model(eff, gear=gear, dissipation=dissipation,
+                                             gear_family=gear_family, dissipation_family=dissipation_family,
                                              verbose=verbose, _ecs=ecs):
                 self._print('%d: %s-%s-%s passed' % (count, eff, gm.gear, gm.dissipation), verbose=verbose)
                 yield gm
                 count += 1
 
-    def link_effort_model(self, eff, gear_family=None, dissipation_family=None, verbose=None, _ecs=None):
+    def link_effort_model(self, eff, gear=None, dissipation=None,
+                          gear_family=None, dissipation_family=None, verbose=None, _ecs=None):
         """
-        This allows
+        This allows externally-specified effort models to use library gear+dissipation models
         :param eff:
+        :param gear:
+        :param dissipation:
         :param gear_family:
         :param dissipation_family:
         :param verbose:
@@ -239,8 +274,8 @@ class GearModelLibrary(object):
         """
         if _ecs is None:
             _ecs = eff.gear_ecs
-        for gea in self.gear_models(_ecs, family=gear_family):
-            for dis in self.dissipation_models(_ecs, family=dissipation_family):
+        for gea in self.gear_models(_ecs, family=gear_family, gear=gear):
+            for dis in self.dissipation_models(_ecs, family=dissipation_family, dissipation=dissipation):
                 try:
                     gm = GearModel(eff, gea, dis)
                 except ConflictingUnits as e:

@@ -16,6 +16,21 @@ class EmptyModel(Exception):
     pass
 
 
+class BaseModel(object):
+    """
+    Abstract model class
+    """
+    @property
+    def order(self):
+        raise NotImplementedError
+
+    def mean(self, param):
+        raise NotImplementedError
+
+    def sample(self, param):
+        raise NotImplementedError
+
+
 class InoperableModel(Exception):
     """
     Discrete models must be 0-order because they cannot take parameters
@@ -28,7 +43,10 @@ class InoperableModel(Exception):
     pass
 
 
-class PolynomialModel(object):
+class PolynomialModel(BaseModel):
+    _log = False
+    _log10 = False
+
     def _make_stats_array_input(self, arg):
         try:
             typ = arg[0].lower()[0]  # ignore typos (and i18n) with this simple trick!
@@ -80,7 +98,7 @@ class PolynomialModel(object):
             orders.append(tuple(coef))
         return orders
 
-    def __init__(self, *args, bounded=True, log=False, log10=False):
+    def __init__(self, *args, bounded=True, scale=None):
         """
         Generate a polynomial model, with or without uncertainty.  The number of positional args determines the
         order of the model.
@@ -95,20 +113,17 @@ class PolynomialModel(object):
          ('static', mean) # no uncertainty
 
         :param args:
-        :param log: [False] Model applies to log-transformed data; the computation returns exp(result)
-        :param log10: [False] Model applies to log10-transformed data; the computation returns 10**(result). An error
-        is raised if both log and log10 are set to True.
+        :param scale: None or default: polynomial models are linear in the parameter
+         'log': Model applies to log-transformed data; the computation returns exp(result)
+         'log10': Model applies to log10-transformed data; the computation returns 10**(result).
         :param bounded: [True] bound normal distributions on the same side of 0 as loc, for stability purposes.
         """
         if len(args) == 0:
             raise EmptyModel()
-        self._log = bool(log)
-        self._log10 = bool(log10)
-        if self._log and self._log10:
-            raise ValueError('Cannot specify both log and log10')
         if isinstance(args[0], str):
             # 0-order uncertain model specified with positional params
             args = self._re_parse_args(args)
+        self.scale = scale
         self._params = []
         self._means = []
         self.bounded = bounded
@@ -116,6 +131,31 @@ class PolynomialModel(object):
             self._make_stats_array_input(arg)
 
         self._mcg = MCRandomNumberGenerator(UncertaintyBase.from_dicts(*self._params))
+
+    @property
+    def scale(self):
+        if self._log:
+            return 'log'
+        elif self._log10:
+            return 'log10'
+        else:
+            return 'linear'
+
+    @scale.setter
+    def scale(self, value):
+        if value is None:
+            return
+        if value == 'log':
+            self._log = True
+            self._log10 = False
+        elif value == 'log10':
+            self._log10 = True
+            self._log = False
+        elif value == 'linear':
+            self._log = self._log10 = False
+        if self._log and self._log10:
+            self._log = self._log10 = False
+            raise ValueError('Cannot specify both log and log10')  # this should never happen
 
     @property
     def order(self):
@@ -166,7 +206,7 @@ class DiscreteChoiceRequired(Exception):
     pass
 
 
-class DiscreteModel(object):
+class DiscreteModel(BaseModel):
     """
     A mapping of discrete params to 0-order models, with or without uncertainty. In a discrete model, a qualitative
     param (dict lookup) is used to select from a range of alternative models. The models must have 0-order because

@@ -42,7 +42,7 @@ Dissipation Models add:
 
 
 """
-from .base_models import PolynomialModel, DiscreteModel, DiscreteChoiceRequired
+from .base_models import PolynomialModel, DiscreteModel, DiscreteChoiceRequired, BaseModel
 from .gear_mapping import validate_gear_types
 
 from random import choice
@@ -57,7 +57,22 @@ class ModelStage(object):
     ref_quantity = None
 
     def __init__(self, family, name, gear_types, model, _equiv, param_unit=None, param_min=None, param_max=None,
+                 param_scale=None,
                  documentation=None, source_doc=None):
+        """
+
+        :param family:
+        :param name:
+        :param gear_types:
+        :param model:
+        :param _equiv:
+        :param param_unit:
+        :param param_min:
+        :param param_max:
+        :param param_scale:
+        :param documentation:
+        :param source_doc:
+        """
 
         self.family = family
         self.name = name
@@ -71,6 +86,7 @@ class ModelStage(object):
         self.param_unit = param_unit
         self.param_min = param_min
         self.param_max = param_max
+        self.param_scale = param_scale
 
         if _equiv is None:
             _equiv = dict()
@@ -241,6 +257,8 @@ class ModelStage(object):
         :param arg:
         :return: either arg
         """
+        if isinstance(arg, BaseModel):
+            return arg
         if self.model_type != 'null':
             raise ModelAlreadyDefined()
         if arg is None:
@@ -252,12 +270,12 @@ class ModelStage(object):
             first = arg[0]
         except TypeError:
             # not indexable- just a number
-            return PolynomialModel(arg)
+            return PolynomialModel(arg, scale=self.param_scale)
         if isinstance(first, str):
             # uncertainty spec
-            return PolynomialModel(arg)
+            return PolynomialModel(arg, scale=self.param_scale)
         # higher-order model
-        return PolynomialModel(*arg)
+        return PolynomialModel(*arg, scale=self.param_scale)
 
 
 class CatchEffort(ModelStage):
