@@ -30,6 +30,10 @@ class BaseModel(object):
     def sample(self, param):
         raise NotImplementedError
 
+    @property
+    def valid_params(self):
+        raise NotImplementedError
+
 
 class InoperableModel(Exception):
     """
@@ -48,6 +52,12 @@ class PolynomialModel(BaseModel):
     _log10 = False
 
     def _make_stats_array_input(self, arg):
+        """
+        Strictly speaking, the order params for triangular distributions are specified is irrelevant, since they can
+        be sorted.
+        :param arg:
+        :return:
+        """
         try:
             typ = arg[0].lower()[0]  # ignore typos (and i18n) with this simple trick!
             mean = float(arg[1])
@@ -65,7 +75,8 @@ class PolynomialModel(BaseModel):
                 d = {'maximum': float(arg[1]), 'minimum': float(arg[2]), 'uncertainty_type': UniformUncertainty.id}
                 mean = (d['maximum'] + d['minimum']) / 2
             elif typ == 't':
-                d = {'loc': float(arg[1]), 'maximum': float(arg[2]), 'minimum': float(arg[3]), 'uncertainty_type': TriangularUncertainty.id}
+                mn, lc, mx = tuple(sorted(float(a) for a in arg[1:]))
+                d = {'loc': lc, 'maximum': mx, 'minimum': mn, 'uncertainty_type': TriangularUncertainty.id}
             elif type == 's':
                 d = {'loc': float(arg[1]), 'uncertainty_type': NoUncertainty.id}
             else:
@@ -133,6 +144,10 @@ class PolynomialModel(BaseModel):
         self._mcg = MCRandomNumberGenerator(UncertaintyBase.from_dicts(*self._params))
 
     @property
+    def valid_params(self):
+        return []
+
+    @property
     def scale(self):
         if self._log:
             return 'log'
@@ -162,6 +177,7 @@ class PolynomialModel(BaseModel):
         return len(self._params) - 1
 
     def _compute(self, x, arr):
+        x = x or 0.0
         y = arr[0]
         for i in range(self.order):
             y += arr[i+1] * x**(i+1)

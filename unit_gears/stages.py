@@ -53,11 +53,11 @@ class ModelAlreadyDefined(Exception):
 
 class ModelStage(object):
     stage = None
-    _param_valid = None
+    _model = None
     ref_quantity = None
 
     def __init__(self, family, name, gear_types, model, _equiv, param_unit=None, param_min=None, param_max=None,
-                 param_scale=None,
+                 model_scale=None,
                  documentation=None, source_doc=None):
         """
 
@@ -69,7 +69,7 @@ class ModelStage(object):
         :param param_unit:
         :param param_min:
         :param param_max:
-        :param param_scale:
+        :param model_scale:
         :param documentation:
         :param source_doc:
         """
@@ -86,7 +86,7 @@ class ModelStage(object):
         self.param_unit = param_unit
         self.param_min = param_min
         self.param_max = param_max
-        self.param_scale = param_scale
+        self.model_scale = model_scale
 
         if _equiv is None:
             _equiv = dict()
@@ -123,31 +123,39 @@ class ModelStage(object):
 
     @property
     def model_type(self):
-        if self._param_valid is None:
-            return 'null'
-        elif bool(self._param_valid):
+        if isinstance(self._model, DiscreteModel):
             return 'discrete'
-        return 'continuous'
+        elif isinstance(self._model, PolynomialModel):
+            return 'continuous'
+        return 'null'
 
     @property
     def order(self):
         return self._model.order
 
     def mean(self, param=None):
-        try:
-            return self._model.mean(param)
-        except DiscreteChoiceRequired:
+        values = list(self.values(param))
+        if len(values) > 1:
             print(self.name)
-            raise
+            raise DiscreteChoiceRequired('Ambiguous param specification: %s' % values)
+        elif len(values) == 0:
+            return self._model.mean(None)
+        else:
+            return self._model.mean(values[0])
 
     def sample(self, param=None):
         values = list(self.values(param))
-        return self._model.sample(choice(values))
+        value = choice(values)
+        if self.model_type == 'continuous':
+            if self.order > 0 and value == 0.0:
+                # this warning is to prevent silent param-lookup fails on continuous models
+                print('Warning: sampling linear model with 0.0 param %s' % self.name)
+        return self._model.sample(value)
 
     @property
     def keys(self):
         if self.model_type == 'discrete':
-            for v in self._param_valid:
+            for v in self._model.valid_params:
                 yield v
         elif self.model_type == 'continuous':
             yield self.param_unit
@@ -186,7 +194,7 @@ class ModelStage(object):
                     _gen = []
                     for k, v in param.items():
                         try:
-                            factor = self._equiv[k]
+                            factor = self._get_cf(k)
                         except KeyError:
                             continue
                         _gen.extend([t / factor for t in self.values(v)])
@@ -239,14 +247,8 @@ class ModelStage(object):
                     return True
                 return True
         if self.model_type == 'discrete':
-            return param_value in self._param_valid
+            return param_value in self._model.valid_params
         return False
-
-    def _parse_discrete(self, arg):
-        dm = DiscreteModel(**arg)
-        keys = dm.valid_params
-        self._param_valid = keys
-        return dm
 
     def _parse_arg(self, arg):
         """
@@ -264,18 +266,18 @@ class ModelStage(object):
         if arg is None:
             arg = 1.0
         if isinstance(arg, dict):
-            return self._parse_discrete(arg)
-        self._param_valid = []
+            dm = DiscreteModel(**arg)
+            return dm
         try:
             first = arg[0]
         except TypeError:
             # not indexable- just a number
-            return PolynomialModel(arg, scale=self.param_scale)
+            return PolynomialModel(arg, scale=self.model_scale)
         if isinstance(first, str):
             # uncertainty spec
-            return PolynomialModel(arg, scale=self.param_scale)
+            return PolynomialModel(arg, scale=self.model_scale)
         # higher-order model
-        return PolynomialModel(*arg, scale=self.param_scale)
+        return PolynomialModel(*arg, scale=self.model_scale)
 
 
 class CatchEffort(ModelStage):

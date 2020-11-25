@@ -191,6 +191,14 @@ class GearModel(object):
         return self.e_tilde(e_param) * self.scaling_factor * self.g_tilde(g_param) * self.op_factor * self.d_tilde(d_param)
 
     def __str__(self):
+        return "; ".join((self._e.name, self._g.name, self._d.name))
+
+    @property
+    def family(self):
+        return self._e.family, self._g.family, self._d.family
+
+    @property
+    def formula(self):
         return "%s ~ %s * %s" % (self._e.catch_unit, self.scaling_unit, self.op_unit)
 
 '''
