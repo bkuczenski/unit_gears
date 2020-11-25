@@ -1,0 +1,40 @@
+{
+  "source_name": "",
+  "source_doi": "",
+  "source_documentation": "",
+  "effort_models": [
+    {
+      "name": "",
+      "gear_types": {
+      },
+      "catch_unit": "",
+      "scaling_unit": "",
+      "op_unit": "",
+      "op_equiv": {
+      },
+      "effort_model": [],
+      "documentation": ""
+    }
+  ],
+  "gear_models": [
+    {
+      "name": "",
+      "gear_types": {
+      },
+      "scaling_unit": "",
+      "intensity_model": [],
+      "documentation": ""
+    }
+  ],
+  "dissipation_models": [
+    {
+      "name": "",
+      "documentation": "",
+      "gear_types": {
+      },
+      "op_unit": "",
+      "dissipation_model": [],
+      "dissipation_type": ""
+    }
+  ]
+}
