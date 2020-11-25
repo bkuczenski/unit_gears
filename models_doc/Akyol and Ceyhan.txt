@@ -50,3 +50,12 @@ at 23 tex that is a shocking 27.6 TONS of nylon per km!!!???
 but 7 km would exceed 148 GT
 
 23 g/km = 27 kg of nylon. you idiot.
+
+
+==========
+Wed Nov 25 01:48:13 -0800 2020
+
+This omits floats and leadlines, which probably add significant weight
+
+floats are ~20g each
+

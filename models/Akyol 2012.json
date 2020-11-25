@@ -31,7 +31,7 @@
         "Kilowatt of engine capacity": 90.0
       },
       "intensity_model": ["uniform", 54, 20.0],
-      "documentation": "23 tex = 23 g/km = 27.6 kg/km net at 300 mesh, 55.2kg/km at 600 mesh height\nAssuming longest net (7.2km) equals largest vessel, halved (34m, 148 GT, 1300 kW) and linear"
+      "documentation": "23 tex = 23 g/km = 27.6 kg/km net at 300 mesh, 55.2kg/km at 600 mesh height\nAssuming longest net (7.2km) equals largest vessel, halved (34m, 148 GT, 1300 kW) and linear\nNOTE: this neglects ancillary materials (lines, floats) more like 140 kg/km"
     }
   ]
 }

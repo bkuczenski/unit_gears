@@ -26,7 +26,7 @@
       },
       "scaling_unit": "Square meter of net",
       "intensity_model": ["uniform", 0.011, 0.009],
-      "documentation": "0.7mm monofilament; 0.5 hanging ratio; 200 mm mesh; 27.5m hung length for 275 x 30 meshes"
+      "documentation": "0.7mm monofilament; 0.5 hanging ratio; 200 mm mesh; 27.5m hung length for 275 x 30 meshes\nNOTE: This neglects lines, floats, etc which could drastically exceed net weight 0.12+ kg/m2"
     }
   ]
 }
