@@ -146,10 +146,10 @@ class ModelStage(object):
     def sample(self, param=None):
         values = list(self.values(param))
         value = choice(values)
-        if self.model_type == 'continuous':
-            if self.order > 0 and value == 0.0:
-                # this warning is to prevent silent param-lookup fails on continuous models
-                print('Warning: sampling linear model with 0.0 param %s' % self.name)
+        # if self.model_type == 'continuous':
+        #     if self.order > 0 and value == 0.0:
+        #         # this warning is to prevent silent param-lookup fails on continuous models
+        #         print('Warning: sampling linear model with 0.0 param %s' % self.name)
         return self._model.sample(value)
 
     @property
