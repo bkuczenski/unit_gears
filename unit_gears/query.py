@@ -1,3 +1,10 @@
+from math import prod
+from collections import namedtuple
+
+
+SampleDetail = namedtuple('SampleDetail', ('effort', 'scaling_factor', 'gear', 'op_factor', 'dissipation'))
+
+
 class ConflictingUnits(Exception):
     pass
 
@@ -150,11 +157,7 @@ class GearModel(object):
 
 
     def _report_row(self, e_param, g_param, d_param):
-        e = self.e_bar(e_param)
-        sf =self.scaling_factor
-        g = self.g_bar(g_param)
-        of = self.op_factor
-        d = self.d_bar(d_param)
+        e, sf, g, of, d = self.mean_long(e_param=e_param, g_param=g_param, d_param=d_param)
         r = {
             'catch_family': self._e.family,
             'gear_family': self._g.family,
@@ -184,11 +187,17 @@ class GearModel(object):
                 for dp in self._d.values(d_param):
                     yield self._report_row(ep, gp, dp)
 
+    def mean_long(self, e_param=None, g_param=None, d_param=None):
+        return SampleDetail(self.e_bar(e_param), self.scaling_factor, self.g_bar(g_param), self.op_factor, self.d_bar(d_param))
+
     def mean(self, e_param=None, g_param=None, d_param=None):
-        return self.e_bar(e_param) * self.scaling_factor * self.g_bar(g_param) * self.op_factor * self.d_bar(d_param)
+        return prod(self.mean_long(e_param=e_param, g_param=g_param, d_param=d_param))
+
+    def sample_long(self, e_param=None, g_param=None, d_param=None):
+        return SampleDetail(self.e_tilde(e_param), self.scaling_factor, self.g_tilde(g_param), self.op_factor, self.d_tilde(d_param))
 
     def sample(self, e_param=None, g_param=None, d_param=None):
-        return self.e_tilde(e_param) * self.scaling_factor * self.g_tilde(g_param) * self.op_factor * self.d_tilde(d_param)
+        return prod(self.sample_long(e_param=e_param, g_param=g_param, d_param=d_param))
 
     def __str__(self):
         return "; ".join((self._e.name, self._g.name, self._d.name))
