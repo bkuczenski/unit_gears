@@ -11,11 +11,11 @@
       "catch_unit": "One tonne landed catch",
       "scaling_unit": "kilometer of net",
       "op_unit": "Day of operation",
-      "effort_model": ["normal", 0.0111, 0.0013],
+      "effort_model": ["normal", 11.1, 1.54],
       "op_equiv": {
         "Year of operation": 0.0083
       },
-      "documentation": "Directly reports n = 13 +- 1.6 per 1000 m per day; 90 +- 11 kg per 1000 m per day; 120 days per year is a guess"
+      "documentation": "Directly reports n = 13 +- 1.6 per 1000 m per day; 90 +- 11 kg per 1000 m per day = 11 +-1.5 km*day per tonne; 120 days per year is a guess"
     }
   ],
   "gear_models": [
