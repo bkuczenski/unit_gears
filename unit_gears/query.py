@@ -2,7 +2,24 @@ from math import prod
 from collections import namedtuple
 
 
-SampleDetail = namedtuple('SampleDetail', ('effort', 'scaling_factor', 'gear', 'op_factor', 'dissipation'))
+SampleValue = namedtuple('SampleValue', ('effort', 'scaling_factor', 'gear', 'op_factor', 'dissipation'))
+
+
+class SampleDetail(object):
+    def __init__(self, effort, scaling_factor, gear, op_factor, dissipation):
+        self.e_param, self.effort = effort
+        self.g_param, self.gear = gear
+        self.d_param, self.dissipation = dissipation
+        self.scaling_factor = scaling_factor
+        self.op_factor = op_factor
+        self.gear_kg = self.effort * self.scaling_factor * self.gear * self.op_factor
+        self.diss_kg = self.gear_kg * self.dissipation
+
+    def __iter__(self):
+        return iter(SampleValue(self.effort, self.scaling_factor, self.gear, self.op_factor, self.dissipation))
+
+
+# SampleDetail = namedtuple('SampleDetail', ('effort', 'scaling_factor', 'gear', 'op_factor', 'dissipation'))
 
 
 class ConflictingUnits(Exception):

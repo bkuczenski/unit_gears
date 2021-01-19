@@ -77,7 +77,7 @@ class PolynomialModel(BaseModel):
             elif typ == 't':
                 mn, lc, mx = tuple(sorted(float(a) for a in arg[1:]))
                 d = {'loc': lc, 'maximum': mx, 'minimum': mn, 'uncertainty_type': TriangularUncertainty.id}
-            elif type == 's':
+            elif typ == 's':
                 d = {'loc': float(arg[1]), 'uncertainty_type': NoUncertainty.id}
             else:
                 raise ValueError('Unknown uncertainty type %s' % arg[0])

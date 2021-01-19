@@ -25,4 +25,42 @@ Nylon:	1140	kg/m3
 so, we have 18.6-21.5 kg nylon per 1000 hooks
 
 
+Is this credible? tensile modulus of monofilament PA 500 MPA-2.5 GPA
+tensile strength 75 MPa 75e6 N/m2 * 1.13e-6 m2 cross-sectional area = 88 newtons? basically 20 lb. does not seem like enough to
+haul in 4000 hooks over 40 km.
+
+Musyl reports "mainline usually > 3.0mm"
+
+==========
+Tue Dec 01 16:39:23 -0800 2020
+
+Update: this is woefully too low.
+Musyl model illustrates that 95% of plastic weight comes from mainline + floats, only 5% from branchlines (and that was
+more like 50g per branchline)
+
+Musyl model (97.5 km mainline with 1729 hooks):
+Qty	Description						wt/hook (g)	plastic (g)
+1	4.0 mm mainline (total amount) 	761.8086	761.8086
+62	hard floats per set				235.8471	235.8471
+62	21 m Floatlines					21.4615		21.4615
+10	21 m floatlines for RDF tethers	3.4615		3.4615
+4	Inflatible floats				15.7406		15.7406
+8	RDF buoys						103.1810
+1729	Branchlines					162.3400	47.3800
+
+									1303.8404	1085.6993
+
+12m/snood x 4000 hooks = 48 km mainline
+150 g mainline per hook
+
+Propose:
+
+g lo-hi  component
+ 50-300  mainline
+ 50-150  floats
+ 20- 40  branchline
+
+ 120-490 g/hook uniform
+
+
 

@@ -134,14 +134,19 @@ class ModelStage(object):
         return self._model.order
 
     def mean(self, param=None):
+        """
+        Returns the determining parameter value and the mean
+        :param param:
+        :return: param, value
+        """
         values = list(self.values(param))
         if len(values) > 1:
             print(self.name)
             raise DiscreteChoiceRequired('Ambiguous param specification: %s' % values)
         elif len(values) == 0:
-            return self._model.mean(None)
+            return None, self._model.mean(None)
         else:
-            return self._model.mean(values[0])
+            return values[0], self._model.mean(values[0])
 
     def sample(self, param=None):
         values = list(self.values(param))
@@ -150,7 +155,7 @@ class ModelStage(object):
         #     if self.order > 0 and value == 0.0:
         #         # this warning is to prevent silent param-lookup fails on continuous models
         #         print('Warning: sampling linear model with 0.0 param %s' % self.name)
-        return self._model.sample(value)
+        return value, self._model.sample(value)
 
     @property
     def keys(self):
@@ -182,6 +187,8 @@ class ModelStage(object):
          The general case is a tuple of members of keys
 
         This is brilliant but deserves maybe a modicum of testing.
+
+        note: obviously this is terrible.
 
         :param param:
         :return:
