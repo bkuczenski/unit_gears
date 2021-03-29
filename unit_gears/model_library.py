@@ -40,13 +40,9 @@ class GearModelLibrary(object):
         # First load quantities
         if lib_path not in self._paths:
             self._paths.append(lib_path)
-        try:
-            with open(os.path.join(lib_path, 'quantities.json')) as fp:
-                j = json.load(fp)
-                self._load_quantities(j.pop('quantities'))
-        except FileNotFoundError:
-            if len(list(self.quantities())) == 0:
-                print('Note: no quantities.json found in path %s' % lib_path)
+        self._load_quantities(lib_path, verbose=verbose)
+        if len(list(self.quantities())) == 0:
+            print('Note: no quantities found in path %s' % lib_path)
         for f in os.listdir(lib_path):
             family, ext = os.path.splitext(f)
             if ext.lower() != '.json':
@@ -71,11 +67,19 @@ class GearModelLibrary(object):
     def load_path(self, lib_path, overwrite=True, verbose=True):
         self._load(lib_path, overwrite=overwrite, verbose=verbose)
 
-    def _load_quantities(self, qdict):
+    def _load_quantities(self, lib_path, verbose=None):
+        try:
+            with open(os.path.join(lib_path, 'quantities.json')) as fp:
+                j = json.load(fp)
+        except FileNotFoundError:
+            self._print('No quantities file in %s' % lib_path, verbose=verbose)
+            return
+        qdict = j.pop('quantities', [])
         if len(qdict) == 0:
             return
         for m in MEASURES:
             for qm in qdict.pop(m, []):
+                self._print('Adding %s quantity %s' % (m, qm[0]), verbose=verbose)
                 self._q[m].new_entry(*qm)
 
     def _load_effort(self, family, source_doc, entries, overwrite=False, verbose=None):

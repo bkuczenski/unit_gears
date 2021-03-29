@@ -55,6 +55,7 @@ class PolynomialModel(BaseModel):
         """
         Strictly speaking, the order params for triangular distributions are specified is irrelevant, since they can
         be sorted.
+        This is also true for uniform distributions.
         :param arg:
         :return:
         """
@@ -72,8 +73,9 @@ class PolynomialModel(BaseModel):
             elif typ == 'l':  # take log of the data
                 d = {'loc': log(float(arg[1])), 'scale': float(arg[2]), 'uncertainty_type': LognormalUncertainty.id}
             elif typ == 'u':
-                d = {'maximum': float(arg[1]), 'minimum': float(arg[2]), 'uncertainty_type': UniformUncertainty.id}
-                mean = (d['maximum'] + d['minimum']) / 2
+                mn, mx = tuple(sorted(float(a) for a in arg[1:]))
+                d = {'maximum': mx, 'minimum': mn, 'uncertainty_type': UniformUncertainty.id}
+                mean = (mn + mx) / 2
             elif typ == 't':
                 mn, lc, mx = tuple(sorted(float(a) for a in arg[1:]))
                 d = {'loc': lc, 'maximum': mx, 'minimum': mn, 'uncertainty_type': TriangularUncertainty.id}
@@ -215,7 +217,7 @@ class PolynomialModel(BaseModel):
         return 'y ~ %s%s (x)' % (self._exp, self._coef)
 
     def __repr__(self):
-        return '%s(%s)' % (self.__class__.__name__, self._coef)
+        return '%s(%s%s)' % (self.__class__.__name__, self._exp, self._coef)
 
 
 class DiscreteChoiceRequired(Exception):

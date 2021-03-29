@@ -29,7 +29,7 @@
       "dissipation_type": "lost"
     },
     {
-      "name": "Gilman prioritization - Purse seine ",
+      "name": "Gilman prioritization - Purse seine Non-tuna",
       "documentation": "Table S1",
       "gear_types": {
         "WatsonFleetGearName": "Purse seine Non-tuna",
@@ -42,7 +42,7 @@
       "dissipation_type": "loss-fragments"
     },
     {
-      "name": "Gilman prioritization - Purse seine ",
+      "name": "Gilman prioritization - Purse seine Tuna",
       "documentation": "Table S1",
       "gear_types": {
         "WatsonFleetGearName": "Purse seine Tuna",
@@ -54,9 +54,8 @@
       ],
       "dissipation_type": "loss-fragments"
     },
-
     {
-      "name": "Gilman prioritization - Seine net",
+      "name": "Gilman prioritization - Beach Seine",
       "documentation": "Table S1",
       "gear_types": {
         "GilmanGear25Description": "Beach seines"
@@ -68,7 +67,7 @@
       "dissipation_type": "loss-fragments"
     },
     {
-      "name": "Gilman prioritization - Seine net",
+      "name": "Gilman prioritization - Boat Seine net",
       "documentation": "Table S1",
       "gear_types": {
         "GilmanGear25Description": "Boat seines"
