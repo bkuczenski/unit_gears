@@ -1,7 +1,12 @@
 try:
     from math import prod
 except ImportError:
-    from numpy import product as prod
+    # very annoyed rn
+    from functools import reduce
+    from operator import mul
+    def prod(it):
+        return reduce(mul, it, 1)
+
 
 from collections import namedtuple
 
