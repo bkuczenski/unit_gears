@@ -1,4 +1,8 @@
-from math import prod
+try:
+    from math import prod
+except ImportError:
+    from numpy import product as prod
+
 from collections import namedtuple
 
 
