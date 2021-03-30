@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.com/bkuczenski/unit_gears.svg?branch=main)](https://travis-ci.com/bkuczenski/unit_gears)
-[![Coverage Status](https://coveralls.io/repos/github/bkuczenski/unit_gears/badge.svg?branch=main)](https://coveralls.io/github/bkuczenski/unit_gears?branch=main)
-
 # Gear Models
 This folder contains work related to the gear models used in the TNC fishing gear study.
 
