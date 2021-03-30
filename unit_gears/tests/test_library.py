@@ -1,3 +1,9 @@
+"""
+Note: from Gilman 2020-pre to Gilman 2021:
+ - bottom trawls dissipation estimates went down from 0.16-0.18-0.19 to 0.019-0.035-0.053
+ - midwater trawls dissipation estimates went up from 0.058-0.07-0.082 to 0.0002-0.105-0.434 (noted huge posterior)
+ - also two new dissipation types (tuna vs non-tuna purse seine; beach seine)
+"""
 import unittest
 from ..model_library import GearModelLibrary, MODELS_DIR
 from ..base_models import DiscreteChoiceRequired
@@ -19,7 +25,7 @@ class TestGearLibrary(unittest.TestCase):
         self.gml.load_path(MODELS_DIR)
         self.assertEqual(len(list(self.gml.effort_models())), 10)
         self.assertEqual(len(list(self.gml.gear_models())), 13)
-        self.assertEqual(len(list(self.gml.dissipation_models())), 23)
+        self.assertEqual(len(list(self.gml.dissipation_models())), 25)  # new Gilman prioritization
 
     def test_2_compose(self):
         k = list(self.gml.valid_models(gear_types={'GFWClass': 'trawlers'}))
@@ -30,7 +36,7 @@ class TestGearLibrary(unittest.TestCase):
     def test_3_mean(self):
         k = list(self.gml.valid_models(gear_types={'GFWClass': 'trawlers'}, gear_family='Watanabe'))
         self.assertEqual(len(k), 3)
-        self.assertSetEqual({7.55625, 17.0625, 43.875}, set(j.mean() for j in k))
+        self.assertSetEqual({7.55625, 25.59375, 8.53125}, set(j.mean() for j in k))  # new Gilman prioritization
 
 
 if __name__ == '__main__':
