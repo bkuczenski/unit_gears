@@ -3,10 +3,15 @@ A model is something that converts an input to an output. Our base model is a ge
 for which each parameter can be either static or uncertain.
 """
 
+from collections import namedtuple
 from stats_arrays import (UncertaintyBase, MCRandomNumberGenerator, NormalUncertainty, LognormalUncertainty, \
     UniformUncertainty, TriangularUncertainty, NoUncertainty)
 
 from math import log, exp
+
+
+
+ModelTab = namedtuple('ModelTab', ('param', 'order'))
 
 
 class EmptyModel(Exception):
@@ -32,6 +37,14 @@ class BaseModel(object):
 
     @property
     def valid_params(self):
+        raise NotImplementedError
+
+    @property
+    def tabulations(self):
+        """
+        Generate tabular data. Should return a sequence of dicts with the fields: '
+        :return:
+        """
         raise NotImplementedError
 
 
@@ -99,6 +112,30 @@ class PolynomialModel(BaseModel):
             TriangularUncertainty.id: ' T',
             UniformUncertainty.id: ' U'
         }[k['uncertainty_type']]
+
+    @staticmethod
+    def _p_name(k):
+        return {
+            NoUncertainty.id: 'Static',
+            NormalUncertainty.id: 'Normal',
+            LognormalUncertainty.id: 'Lognormal',
+            TriangularUncertainty.id: 'Triangular',
+            UniformUncertainty.id: 'Uniform'
+        }[k['uncertainty_type']]
+
+    @staticmethod
+    def _p_show(k):
+        if k['uncertainty_type'] == NoUncertainty.id:
+            return '%.3g' % k['loc']
+        elif k['uncertainty_type'] == NormalUncertainty.id:
+            return 'mean: %.3g; stdev: %.3g' % (k['loc'], k['scale'])
+        elif k['uncertainty_type'] == LognormalUncertainty.id:
+            return 'loc: %.3g; scale: %.3g' % (k['loc'], k['scale'])
+        elif k['uncertainty_type'] == TriangularUncertainty.id:
+            return '--'.join(['%.3g' % k[j] for j in ('minimum', 'loc', 'maximum')])
+        elif k['uncertainty_type'] == UniformUncertainty.id:
+            return '--'.join(['%.3g' % k[j] for j in ('minimum', 'maximum')])
+        raise TypeError(k['uncertainty_type'])
 
     @staticmethod
     def _re_parse_args(args):
@@ -197,6 +234,12 @@ class PolynomialModel(BaseModel):
         return self._compute(value, res)
 
     @property
+    def tabulations(self):
+        for i, p in enumerate(self._params):
+            yield {'Param': None, 'Scale': self.scale, 'Order': i,
+                   'DistType': self._p_name(p), 'DistValue': self._p_show(p)}
+
+    @property
     def y_int(self):
         return self.mean(0.0)
 
@@ -260,6 +303,13 @@ class DiscreteModel(BaseModel):
             return self._models[param].sample()
         except KeyError:
             raise DiscreteChoiceRequired(self.valid_params)
+
+    @property
+    def tabulations(self):
+        for k, m in self._models.items():
+            for p in m.tabulations:
+                p['Param'] = k
+                yield p
 
     @property
     def _means(self):

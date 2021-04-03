@@ -54,7 +54,7 @@ class ModelAlreadyDefined(Exception):
 class ModelStage(object):
     stage = None
     _model = None
-    ref_quantity = None
+    _ref_quantity = None
 
     def __init__(self, family, name, gear_types, model, _equiv, param_unit=None, param_min=None, param_max=None,
                  model_scale=None,
@@ -80,8 +80,8 @@ class ModelStage(object):
         self.gear_types = gear_types
 
         if param_unit is None:
-            if self.ref_quantity is not None:
-                param_unit = getattr(self, self.ref_quantity)
+            if self._ref_quantity is not None:
+                param_unit = getattr(self, self._ref_quantity)
 
         self.param_unit = param_unit
         self.param_min = param_min
@@ -115,7 +115,7 @@ class ModelStage(object):
 
     @property
     def ref_unit(self):
-        return getattr(self, self.ref_quantity)
+        return getattr(self, self._ref_quantity)
 
     @property
     def doc(self):
@@ -286,9 +286,36 @@ class ModelStage(object):
         # higher-order model
         return PolynomialModel(*arg, scale=self.model_scale)
 
+    def _output_unit(self):
+        return NotImplemented
+
+    def table(self):
+        """
+        Generate a sequence of rows (as dicts) for writing to a table with columns:
+        Family, GearTypes, OutputUnit, InputUnit, Param, Order, DistType, DistValues
+        :return:
+        """
+        gts = set()
+        for v in self.gear_types.values():
+            if isinstance(v, str):
+                gts.add(v)
+            else:
+                for k in v:
+                    gts.add(k)
+        gt = '; '.join(list(gts))
+        for m in self._model.tabulations:
+            m['Family'] = self.family
+            m['GearTypes'] = gt
+            m['OutputUnit'] = self._output_unit()
+            m['InputUnit'] = self.ref_unit.unit
+            yield m
+
+
 
 class CatchEffort(ModelStage):
     stage = 'effort'
+    def _output_unit(self):
+        return '%s*%s' % (self.scaling_unit.unit, self.op_unit.unit)
 
     @property
     def ref_unit(self):
@@ -321,7 +348,10 @@ class CatchEffort(ModelStage):
 
 class GearIntensity(ModelStage):
     stage = 'gear'
-    ref_quantity = 'scaling_unit'
+    _ref_quantity = 'scaling_unit'
+
+    def _output_unit(self):
+        return 'kg gear'
 
     def __init__(self, family, name, gear_types, scaling_unit, intensity_model, scaling_equiv=None,
                  attributes=None, **kwargs):
@@ -347,7 +377,10 @@ class GearIntensity(ModelStage):
 
 class Dissipation(ModelStage):
     stage = 'dissipation'
-    ref_quantity = 'op_unit'
+    _ref_quantity = 'op_unit'
+
+    def _output_unit(self):
+        return self.dissipation_type
 
     def __init__(self, family, name, gear_types, op_unit, dissipation_type, dissipation_model, op_equiv=None, **kwargs):
         self.op_unit = op_unit
