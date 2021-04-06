@@ -304,6 +304,12 @@ class ModelStage(object):
                     gts.add(k)
         gt = '; '.join(list(gts))
         for m in self._model.tabulations:
+            if self.model_type == 'continuous':
+                if self.param_unit is not None:
+                    if m['Order'] > 0:
+                        m['Param'] = self.param_unit.unit
+                    else:
+                        m['Param'] = '--'
             m['Family'] = self.family
             m['GearTypes'] = gt
             m['OutputUnit'] = self._output_unit()

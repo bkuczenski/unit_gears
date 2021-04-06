@@ -308,7 +308,7 @@ class DiscreteModel(BaseModel):
     def tabulations(self):
         for k, m in self._models.items():
             for p in m.tabulations:
-                p['Param'] = k
+                p['Param'] = '"%s"' % k
                 yield p
 
     @property
