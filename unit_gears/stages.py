@@ -149,6 +149,12 @@ class ModelStage(object):
             return values[0], self._model.mean(values[0])
 
     def sample(self, param=None):
+        """
+        value is chosen from valid params as determined by argument
+        Returns a 2-tuple: (value, sample(value))
+        :param param:
+        :return:
+        """
         values = list(self.values(param))
         value = choice(values)
         # if self.model_type == 'continuous':

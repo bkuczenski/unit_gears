@@ -18,8 +18,8 @@ from .stages import CatchEffort, GearIntensity, Dissipation
 from .query import GearModel, ConflictingUnits  # , ConflictingParams, NoValidParams  # , ZeroValuedModel
 
 
-REFERENCE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'reference'))
-MODELS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models'))
+REFERENCE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), 'reference'))
+MODELS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), 'models'))
 
 MODEL_STAGES = ('effort', 'gear', 'dissipation')
 

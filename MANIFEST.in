@@ -1,0 +1,5 @@
+include unit_gears/models/*.json
+include unit_gears/reference/quantities.json
+include models_doc/*
+include unit_gears/templates/*.json
+include jupyter/Manuscript-Content.ipynb
