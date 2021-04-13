@@ -8,6 +8,7 @@ requires = [
 '''
 VERSION HISTORY
 
+1.0.4 - forgot master_gear_mapping.csv
 1.0.3 - Added MANIFEST.in and included model library and docs
 
 1.0.2 - Added automatic tabulation of models for SciAdv paper; released to PyPI
@@ -19,7 +20,7 @@ VERSION HISTORY
 0.1.0 - 18 November 2020 - Initial setup 
 '''
 
-VERSION = '1.0.3'
+VERSION = '1.0.4'
 
 setup(
     name="unit_gears",
@@ -34,5 +35,5 @@ setup(
     long_description=open('README.md').read(),
     packages=find_packages(),
     include_package_data=True,
-    package_data={'unit_gears': ['models/*.json', 'reference/*.json', 'templates/*.json']}
+    package_data={'unit_gears': ['models/*.json', 'reference/*.json', 'reference/*.csv', 'templates/*.json']}
 )

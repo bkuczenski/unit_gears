@@ -7,7 +7,7 @@ import os
 from collections import defaultdict
 # from itertools import chain
 
-MASTER_GEAR_FILE = os.path.join(os.path.dirname(__file__), '..', 'master_gear_mapping.csv')
+MASTER_GEAR_FILE = os.path.join(os.path.dirname(__file__), 'reference', 'master_gear_mapping.csv')
 
 
 class GearMapper(object):
